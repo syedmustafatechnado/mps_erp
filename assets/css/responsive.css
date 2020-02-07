@@ -1,0 +1,73 @@
+ @media only screen and (max-width:1023px){
+	.app-search .app-search-box .input-group {
+    	width: 180px;
+	}
+ }
+  @media only screen and (max-width:860px){
+      .create-resource-left-col,.create-resource-right-col{
+            flex: 0 0 100%;
+            max-width: 100%;
+      }
+      .add-image-wrapper{
+          max-width: 420px;
+          margin: 0 auto 30px auto;
+      }
+  }
+ @media only screen and (max-width:767px){
+	.login-card .card.bg-pattern .card-left-side{
+		flex: 0 0 100%;
+    	max-width: 100%;
+    	display: none;
+	}
+	.login-card .card.bg-pattern .card-left-side-inner{
+		position: relative;
+		height: 310px;
+	}
+	.login-card .card.bg-pattern .card-body {
+    	flex: 0 0 100%;
+    	max-width: 100%;
+	}
+	.login-card .card.bg-pattern{
+		padding: 0;
+	}
+	body.authentication-bg-pattern p.copyright-text{
+		margin-top: 0;
+	}
+	body.authentication-bg-pattern .account-pages{
+		margin-top: 0 !important;
+	}
+	.invoice-slip-top-2-left {
+        width: 100%;
+        padding-right: 0px;
+    }
+    .invoice-slip-top-2-right,.invoice-slip-bottom-left{
+        width: 100%;
+    }
+    .invoice-slip-bottom{
+        flex-wrap: wrap;
+    }
+    .invoice-slip-bottom-right {
+        width: 100%;
+        padding-top: 20px;
+    }
+ }
+  @media only screen and (max-width:480px){
+  	.status-slide .card-box{
+  		max-width: 220px;
+  		margin: 0 auto 25px auto;
+  	}
+  	.business-units-wrapper .unit-rows .business-units-col{
+  	    flex: 0 0 100%;
+        max-width: 100%;
+  	}
+  }
+   @media only screen and (max-width:375px){
+       .add-image-wrapper .upload-file-form input::before,
+       .add-image-wrapper .upload-file-form span {
+            font-size: 16px !important;
+       }
+       .add-image-wrapper .upload-file-form input,
+       .add-image-wrapper .upload-file-form label{
+            width: 108px;    
+       }
+   }

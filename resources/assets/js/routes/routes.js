@@ -1,0 +1,57 @@
+import AllComponents from '../main_component.js';
+
+const routes = [
+  {
+      name: 'home',
+      path: '/laravelvue/',
+      component: AllComponents['HomeComponent'],
+      meta: {
+        requireAuth: true
+      }
+  },
+  {
+      name: 'create',
+      path: '/laravelvue/create',
+      component: AllComponents['CreateComponent'],
+      meta: {
+        requireAuth: true
+      }
+  },
+  {
+      name: 'posts',
+      path: '/laravelvue/posts',
+      component: AllComponents['IndexComponent'],
+      meta: {
+        requireAuth: true
+      }
+  },
+  {
+      name: 'datatable',
+      path: '/laravelvue/datatable',
+      component: AllComponents['DatatableComponent'],
+      meta: {
+        requireAuth: true
+      }
+  },
+  {
+      name: 'edit',
+      path: '/laravelvue/edit/:id',
+      component: AllComponents['EditComponent'],
+      meta: {
+        requireAuth: true
+      }
+  },
+  {
+      name: 'login',
+      path: '/projects/mps/login',
+      component: AllComponents['LoginComponent']
+  }
+  ,
+  {
+      name: 'chart',
+      path: '/laravelvue/chart',
+      component: AllComponents['ChartComponent']
+  }
+];
+
+export default routes;
