@@ -48,6 +48,27 @@ const routes = [
   }
   ,
   {
+    name: 'division',
+    path: '/projects/mps/division',
+    component: AllComponents['DivisionComponent'],
+    meta: {
+        requireAuth: true
+      }
+  }
+,
+ {
+    name: 'department',
+    path: '/projects/mps/department',
+    component: AllComponents['DepartmentComponent']
+  }
+,
+{
+    name: 'designation',
+    path: '/projects/mps/designation',
+    component: AllComponents['DesignationComponent']
+  }
+,
+  {
       name: 'chart',
       path: '/laravelvue/chart',
       component: AllComponents['ChartComponent']
@@ -55,3 +76,9 @@ const routes = [
 ];
 
 export default routes;
+// export default new VueRouter({
+//     mode: 'history',
+//     base: '/projects/mps_erp',
+//     routes
+// })
+

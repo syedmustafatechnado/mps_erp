@@ -110,7 +110,7 @@
 
 				if(res.status){
 					this.$store.commit('loginSuccess',res);
-					this.$router.push({path:'/projects/mps'});
+					this.$router.push({path:'/projects/mps/'});
 				}else{
 					alert(res.message);
 				}

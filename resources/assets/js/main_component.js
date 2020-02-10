@@ -10,6 +10,9 @@ import Footer from './components/layouts/Footer.vue';
 import LeftSidebar from './components/layouts/LeftSidebar.vue';
 import RightSidebar from './components/layouts/RightSidebar.vue';
 import Top from './components/layouts/Top.vue';
+import DivisionComponent from  './components/divisions/DivisionComponent.vue';
+import DepartmentComponent from  './components/departments/DepartmentComponent.vue';
+import DesignationComponent from  './components/designations/DesignationComponent.vue';
 
 
 
@@ -25,7 +28,10 @@ const components = {
     Footer:Footer,
     LeftSidebar:LeftSidebar,
     RightSidebar:RightSidebar,
-    Top,Top
+    Top:Top,
+    DivisionComponent:DivisionComponent,
+    DepartmentComponent:DepartmentComponent,
+    DesignationComponent:DesignationComponent
 }
 
 export default components;

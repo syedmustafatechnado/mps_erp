@@ -28,6 +28,8 @@ mix.js([
    'resources/js/custom.js',
    'resources/js/flatpickr.min.js',
    'resources/js/flot.js',
+    'resources/js/alert.js',
+    'resources/js/sweetalert.min.js',
 
 
    'resources/js/vendor.min.js',

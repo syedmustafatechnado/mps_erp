@@ -10,12 +10,13 @@ export default {
 		isLoggedIn: !!user,
 		loading: false,
 		users: [],
-		auth_error: null
+        auth_error: null,
+        divisions:[]
 	},
 	mutations: {
 
 		login(state){
-			
+
 			state.loading = true;
 			state.auth_error = null;
 
@@ -39,7 +40,22 @@ export default {
 			localStorage.removeItem("user");
 			state.isLoggedIn = false;
 			state.currentUser = null;
-		}
+        },
+        divisionAdd(state,payload){
+
+            state.divisions.push(payload);
+
+
+        },
+        divisionSet(state,payload){
+            console.log('payload '+JSON.stringify(payload));
+            // console.log('divisions '+state.divisions);
+            state.divisions=payload;
+            console.log(state.divisions);
+
+        // state.divisions = payload;
+
+        }
 
 
 	},
@@ -61,8 +77,12 @@ export default {
 		},
 		users(state){
 			return state.users;
-		},
-		
+        },
+        divisions(state)
+        {
+            return state.divisions;
+        }
+
 	},
 	actions: {
 		login(context){

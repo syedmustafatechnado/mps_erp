@@ -92,13 +92,16 @@
                     </a>
                     <ul class="nav-second-level collapse" id="demo1" aria-expanded="false">
                         <li>
-                            <a href="">Division</a>
+                             <router-link :to="{name:'division'}" class="nav-link">Division</router-link>
+                            <!-- <a href="">Division</a> -->
                         </li>
                         <li>
-                            <a href="">Department</a>
+                            <router-link :to="{name:'department'}" class="nav-link">Department</router-link>
+                            <!-- <a href="">Department</a> -->
                         </li>
                         <li>
-                            <a href="">Designations</a>
+                            <router-link :to="{name:'designation'}" class="nav-link">Designation</router-link>
+                            <!-- <a href="">Designations</a> -->
                         </li>
                          <li class="nav-item">
                             <a href="#" @click.prevent="logout" class="nav-link">Logout</a>

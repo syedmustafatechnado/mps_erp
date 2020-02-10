@@ -11,6 +11,12 @@ import VueAxios from 'vue-axios';
 import axios from 'axios';
 import Vuex from 'vuex';
 import App from './App.vue';
+import Vue from "vue"
+import VueSimpleAlert from "vue-simple-alert";
+import BootstrapVue from 'bootstrap-vue';
+
+Vue.use(VueSimpleAlert);
+Vue.use(BootstrapVue);
 // import DatatableFactory from 'vuejs-datatable';
 
 /*[START] SET BASE URL */
@@ -28,6 +34,9 @@ import Routes from './routes/routes.js';
 import StoreData from './store.js';
 
 const store = new Vuex.Store(StoreData);
+let auth_token = StoreData.state.currentUser.token;
+if(auth_token)
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+auth_token;
 // console.log(process.env);
 const router = new VueRouter({ mode: 'history', routes: Routes});
 
@@ -37,7 +46,7 @@ router.beforeEach((to,from,next)=>{
 	if(requireAuth && !currentUser){
 		next('/projects/mps/login');
 	}else if(to.path == '/projects/mps/login' && currentUser){
-		next('/projects/mps');
+		next('/projects/mps/');
 	}else{
 		next();
 	}

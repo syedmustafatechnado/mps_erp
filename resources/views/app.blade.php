@@ -15,11 +15,7 @@
          <example-component></example-component>
         </div>
 
-        <script src="{{ URL::asset('public/js/login.js') }}" type="text/javascript"></script>
-
         <script src="{{ URL::asset('public/js/all.js') }}" type="text/javascript"></script>
-        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.2.0/js/bootstrap.min.js"></script>
 
     </body>
 </html>

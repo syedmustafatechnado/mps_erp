@@ -14,7 +14,14 @@ use Illuminate\Http\Request;
 */
 Route::post('/login', 'Api\AuthController@login');
 Route::post('/signup', 'Api\AuthController@signUp');
-Route::group(['middleware' => ['auth:api','client.credentials'],'namespace'=>'Api'], function(){
+Route::group(['middleware' => ['auth:api'],'namespace'=>'Api'], function(){
+
+
+// Division Routes
+
+Route::get('/division/list','DivisionController@getList');
+Route::post('/division/create','DivisionController@addDivision');
+Route::delete('/division/delete/{id}','DivisionController@deleteDivision');
 
 });
 
@@ -24,3 +31,4 @@ Route::post('/post/update/{id}', 'PostController@update');
 Route::delete('/post/delete/{id}', 'PostController@delete');
 Route::get('/posts', 'PostController@index');
 Route::get('/users', 'Api\UserController@index');
+
