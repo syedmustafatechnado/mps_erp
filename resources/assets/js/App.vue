@@ -53,8 +53,7 @@ import RightSidebar from './components/layouts/RightSidebar';
                   }
                 },
                 created(){
-                    console.log(LeftSidebar,'left');
-                    console.log(RightSidebar,'right');
+
                 }
           }
 </script>

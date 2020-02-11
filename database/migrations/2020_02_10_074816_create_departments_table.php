@@ -18,7 +18,7 @@ class CreateDepartmentsTable extends Migration
             $table->unsignedBigInteger('division_id')->nullable();
             $table->string('code');
             $table->string('name');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('division_id')->references('id')->on('divisions')

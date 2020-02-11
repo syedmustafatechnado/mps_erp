@@ -21,18 +21,17 @@
             <a href="#" @click.prevent="logout" class="nav-link">Logout</a>
           </li>
         </ul>
-      </nav> 
+      </nav>
   </div>
   </template>
 <script>
     export default {
-        
-      methods: { 
+
+      methods: {
               logout(){
                   this.$store.commit('logout');
-                  this.$router.push({path:'/projects/mps/login'});
+                  this.$router.push({path:'/projects/mps_erp/login'});
               }
             }
     }
 </script>
-  

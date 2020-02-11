@@ -23,7 +23,7 @@ class DivisionController extends Controller
 
     public function getList()
     {
-       $divisions= Division::where('status', 1)->get();
+        $divisions = Division::where('status', 1)->get();
         if ($divisions->count() == 0) {
 
             $this->response = array(
@@ -39,33 +39,50 @@ class DivisionController extends Controller
             );
         }
         return response()->json($this->response, $this->successStatus);
-
     }
 
-    public function addDivision(Request $request)
+    public function addDivision(DivisionAddRequest $request)
     {
 
         $inputs = $request->all();
+        if($request->action=='edit')
+        {
+            $obj = Division::find($request->id);
+            $obj->name = $request->name;
+            $obj->save();
+            $this->response = array(
+                'api_status' => 1,
+                'message' => 'Division Updated Successfully !',
+                'data' => $obj
 
-      //  dd($inputs);
-        $divisions= Division::create($inputs);
+
+            );
+
+        }
+        else{
+            $divisions = Division::create($inputs);
+            $this->response = array(
+                'api_status' => 1,
+                'message' => 'Division Added Successfully !',
+                'data' => $divisions
 
 
-        $this->response = array(
-            'api_status' => 1,
-            'message' => 'Division Added Successfully !',
-            'data' => $divisions
+            );
+        }
 
 
-        );
 
         return response()->json($this->response, $this->successStatus);
     }
 
-    public function deleteDivision(Request $request,$id)
+    public function updateDivision($id)
     {
 
-        $inputs = $request->all();
+    }
+
+    public function deleteDivision(Request $request, $id)
+    {
+
         $division = Division::find($id);
         $del = $division->delete();
 
@@ -83,5 +100,4 @@ class DivisionController extends Controller
 
         return response()->json($this->response, $this->successStatus);
     }
-
 }

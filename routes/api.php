@@ -23,6 +23,9 @@ Route::get('/division/list','DivisionController@getList');
 Route::post('/division/create','DivisionController@addDivision');
 Route::delete('/division/delete/{id}','DivisionController@deleteDivision');
 
+// Department Routes
+Route::get('/department/list','DepartmentController@getList');
+
 });
 
 Route::post('/post/create', 'PostController@store');

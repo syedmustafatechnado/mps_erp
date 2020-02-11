@@ -1,178 +1,295 @@
 <template>
-
-<div class="content-page">
-<div class="content">
-    <!-- Start Content-->
-    <div class="container-fluid">
+  <div class="content-page">
+    <div class="content">
+      <!-- Start Content-->
+      <div class="container-fluid">
         <!-- start page title -->
         <div class="row">
-            <div class="col-12">
-                <div class="page-title-box">
-                    <div class="page-title-right">
-                        <form class="form-inline dashboard-top-actions leads-action-btn">
-                            <button type="button" id="add_button" data-toggle="modal" data-target="#formModal" class="waves-effect waves-light lead-btn create-new-lead-btn ml-2">
-                            <i class="fas fa-compress-arrows-alt"></i>Create New Division</button>
-                            <!-- <a href="javascript: void(0);" class="waves-effect waves-light btn btn-blue btn-sm ml-2 filter-button">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right">
+                <form class="form-inline dashboard-top-actions leads-action-btn">
+                  <button
+                    type="button"
+                    id="add_button"
+                    data-toggle="modal"
+                    data-target="#formModal"
+                    class="waves-effect waves-light lead-btn create-new-lead-btn ml-2"
+                  >
+                    <i class="fas fa-compress-arrows-alt"></i>Create New Division
+                  </button>
+                  <!-- <a href="javascript: void(0);" class="waves-effect waves-light btn btn-blue btn-sm ml-2 filter-button">
                                 <i class="mdi mdi-filter-outline"></i>
-                                </a> -->
-                        </form>
-                    </div>
-                    <h4 class="page-title"><span></span></h4>
-                </div>
+                  </a>-->
+                </form>
+              </div>
+              <h4 class="page-title">
+                <span></span>
+              </h4>
             </div>
+          </div>
         </div>
         <div class="leads-main-table-wrapper">
-
-                <div class="table-responsive">
-                    <table id="example1" class="table-bordered table-striped custom-table leads-main-table">
-                        <thead>
-                            <tr>
-                                <th>S.NO</th>
-                                <th>Name</th>
-                                <th>ACTIONS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="division in divisions" :key="division.id">
-                                <td>{{ division.id }}</td>
-                                <td>{{ division.name }}</td>
-                                <td><router-link :to="{name: 'edit', params: { id: division.id }}" class="btn btn-primary">Edit</router-link>
-                                <button class="btn btn-danger" @click.prevent="deleteDivision(division.id)">Delete</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+          <div class="table-responsive">
+            <table id="example1" class="table-bordered table-striped custom-table leads-main-table">
+              <thead>
+                <tr>
+                  <th>S.NO</th>
+                  <th>Name</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="division in divisions" :key="division.id">
+                  <td>{{ division.id }}</td>
+                  <td>{{ division.name }}</td>
+                  <td>
+                    <!-- <router-link   data-toggle="modal"
+                    data-target="#formModal"
+                      :to="{name: 'edit', params: { id: division.id }}"
+                      class="btn btn-primary"
+                    >Edit</router-link> -->
+                    <button
+                      class="btn btn-primary"
+                      data-toggle="modal"
+                      data-target="#formModalEdit"
+                      @click.prevent="setDivisionId(division.id,division.name)"
+                    >Edit</button>
+                    <button
+                      class="btn btn-danger"
+                      @click.prevent="deleteDivision(division.id)"
+                    >Delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <!-- end page title -->
+      </div>
+      <!-- container -->
     </div>
-    <!-- container -->
-</div>
 
-<!-- content -->
-<div id="formModal" class="modal fade formModal" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
+    <!-- content -->
+    <div id="formModal" class="modal fade formModal" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form @submit.prevent="addDivision">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Division</h4>
-                    <button type="button" class="close" data-dismiss="modal" style="    color: #fff;">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <span id="form_result"></span>
-                   <input type="hidden" name="" value="" />
-                    <div class="form-group">
-                        <label class="control-label col-md-4">Division Name</label>
-                        <input type="text" v-model="division.name"  name="name" id="name" class="form-control" required="">
-                        <span id="name_errs" class="text-danger form_error"></span>
-                    </div>
-                     <p>  <b-alert
-                        :show="dismissCountDown"
-                        dismissible
-                        @dismissed="dismissCountDown=0"
-                        variant="success"
-                        >
-                        {{message}}}
-                        </b-alert> </p>
-                </div>
-                <div class="modal-footer">
-                    <input type="hidden" id="insert" name="insert" value="insert">
-                    <input type="hidden" name="user_id" id="user_id">
-                    <input type="submit" id="action" name="action" class="btn btn-info" value="Add">
-                    <button type="button" @click="showAlert" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <form @submit.prevent="addDivision">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Division</h4>
 
-                </div>
-
-
-            </form>
-
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                style="    color: #fff;"
+              >&times;</button>
+            </div>
+            <div class="modal-body">
+              <span id="form_result"></span>
+              <input type="hidden" name value />
+              <div class="form-group">
+                <label class="control-label col-md-4">Division Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  v-model="division.name"
+                  class="form-control"
+                  required
+                />
+                <span id="name_errs" class="text-danger form_error"></span>
+              </div>
+              <p>
+                <b-alert
+                  :show="dismissCountDown"
+                  dismissible
+                  @dismissed="dismissCountDown=0"
+                  variant="success"
+                >{{message}}</b-alert>
+              </p>
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" id="insert" name="insert" value="insert" />
+              <input type="hidden" name="user_id" id="user_id" />
+              <input type="submit" id="action" name="action" class="btn btn-info" value="Add" />
+              <button
+                type="button"
+                @click="showAlert"
+                class="btn btn-danger"
+                data-dismiss="modal"
+              >Close</button>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
 
-</div>
+    <!-- Edit -->
+    <div id="formModalEdit" class="modal fade formModal" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <form @submit.prevent="editDivision">
+            <div class="modal-header">
+              <h4 class="modal-title">Edit Division</h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                style="    color: #fff;"
+              >&times;</button>
+            </div>
+            <div class="modal-body">
+              <span id="form_result"></span>
+              <input type="hidden" name value />
+              <div class="form-group">
+                <label class="control-label col-md-4">Division Name</label>
+                <input
+                  type="text"
+                  v-model="division_name"
+                  name="name"
+                  id="name"
+                  class="form-control"
+                  required
+                />
+                <span id="name_errs" class="text-danger form_error"></span>
+              </div>
+              <p>
+                <b-alert
+                  :show="dismissCountDown"
+                  dismissible
+                  @dismissed="dismissCountDown=0"
+                  :variant="alert_type"
+                >{{message}}</b-alert>
+              </p>
 
-</div>
-
+            </div>
+            <div class="modal-footer">
+              <input type="submit" id="action" name="action" class="btn btn-info" value="Update" />
+              <button
+                type="button"
+                @click="showAlert"
+                class="btn btn-danger"
+                data-dismiss="modal"
+              >Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
-        return {
-          divisions:this.$store.getters.divisions,
-          division: {},
-          flag_success : false,
-          dismissSecs: 3,
-          dismissCountDown: 0,
-          message : ''
-        }
-      },
-      computed: {
-
-
+    return {
+      divisions: this.$store.getters.divisions,
+      division: {},
+      flag_success: false,
+      dismissSecs: 3,
+      dismissCountDown: 0,
+      message: "",
+      division_id : 0,
+      division_name : "TEXT",
+      alert_type : "success"
+    };
+  },
+  computed: {},
+  created() {
+    console.log(this.$store.currentUser);
+    let uri = "/api/division/list";
+    this.axios.get(uri).then(response => {
+      this.divisions = response.data.data;
+      this.$store.commit("divisionSet", response.data.data);
+    });
+  },
+  methods: {
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown;
     },
-    created()
+    showAlert() {
+      this.dismissCountDown = this.dismissSecs;
+    },
+    setDivisionId(id,name)
     {
-        // const headers = {
 
-        // 'Authorization': 'Bearer '+this.$store.getters.currentUser.token,
+           this.division_id = id;
+           this.division_name = name
+           console.log(this.division_name);
 
-        // }
-
-        console.log(this.$store.currentUser);
-        let uri = '/api/division/list';
-        this.axios.get(uri).then(response => {
-         this.divisions = response.data.data;
-        this.$store.commit('divisionSet',response.data.data);
-
-      });
     },
-    methods: {
-       countDownChanged(dismissCountDown) {
-        this.dismissCountDown = dismissCountDown
-      },
-      showAlert() {
-        this.dismissCountDown = this.dismissSecs
-      },
-      deleteDivision(id)
-      {
-        let uri = `/api/division/delete/${id}`;
-        this.axios.delete(uri).then(response => {
-         // this.di.splice(this.posts.indexOf(id), 1);
-         console.log(response);
-        });
-      },
-      addDivision(){
-        let uri = '/api/division/create';
-        // let headers = {
-        //         headers: {
-        //             'Content-Type': 'multipart/form-data',
-        //             'boundary' : Math.random().toString().substr(2),
-        //             'Authorization': 'Bearer '+this.$store.getters.currentUser.token,
-        //         }
-        //       };
-              var form_data = new FormData();
+    deleteDivision(id) {
 
-          for ( var key in this.division ) {
+      var flag = confirm("Are you sure?");
+      if(flag){
+      let uri = `/api/division/delete/${id}`;
+      this.axios.delete(uri).then(response => {
+        console.log(response);
+      });
+      }
 
-            var postValue = this.division[key];
-            if(key == 'image'){
-              postValue = this.dataURLtoFile(this.division[key],'abc.png');
-            }
-              form_data.append(key, postValue);
+    },
+    editDivision() {
+       let uri = "/api/division/create";
+      var form_data = new FormData();
+
+      for (var key in this.division) {
+        var postValue = this.division[key];
+        if (key == "image") {
+          postValue = this.dataURLtoFile(this.division[key], "abc.png");
+        }
+        form_data.append(key, postValue);
+      }
+        form_data.append("id", this.division_id);
+        form_data.append("name", this.division_name);
+        form_data.append("action", 'edit');
+        this.axios.post(uri,form_data).then(response => {
+         console.log(response.data.message);
+          console.log(response.data.status);
+
+          if(response.data.api_status==0)
+          {
+              console.log("I am coming in");
+              this.alert_type = "danger";
           }
-       this.axios.post(uri, form_data).then((response) => {
-      // this.$store.divisions.push({id:response.data.data.id, name:response.data.data.name});
-       console.log(response.data.data);
-       this.$store.commit('divisionAdd',response.data.data);
-       this.flag_success = true;
-       console.log(this.flag_success);
+         else{
+               this.alert_type = "success";
+               this.$store.commit("divisionEdit",response.data.data);
+         }
+
+        this.flag_success = true;
         this.dismissCountDown = this.dismissSecs;
-    //	this.$router.push({path:'/projects/mps/division'});
         this.message = response.data.message;
 
-        });
+
+      }).catch(e=>
+      {
+          console.log(e.message);
+      });
+
+
+    },
+    addDivision() {
+      let uri = "/api/division/create";
+
+      var form_data = new FormData();
+
+      for (var key in this.division) {
+        var postValue = this.division[key];
+        if (key == "image") {
+          postValue = this.dataURLtoFile(this.division[key], "abc.png");
+        }
+        form_data.append(key, postValue);
       }
+      form_data.append("action", "new");
+      this.axios.post(uri,form_data).then(response => {
+        this.$store.commit("divisionAdd", response.data.data);
+        this.flag_success = true;
+        this.dismissCountDown = this.dismissSecs;
+        this.message = response.data.message;
+      });
     }
   }
+};
 </script>

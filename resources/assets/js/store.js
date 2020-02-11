@@ -47,6 +47,10 @@ export default {
 
 
         },
+        divisionEdit(state,payload){
+            state.divisions.pop();
+            state.divisions.push(payload);
+        },
         divisionSet(state,payload){
             console.log('payload '+JSON.stringify(payload));
             // console.log('divisions '+state.divisions);

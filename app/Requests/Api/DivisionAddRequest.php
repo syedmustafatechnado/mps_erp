@@ -47,6 +47,6 @@ class DivisionAddRequest extends FormRequest
             'api_status' => 0,
             'message' => $errors
         ];
-        throw new HttpResponseException(response()->json($json, 422));
+        throw new HttpResponseException(response()->json($json, 200));
     }
 }

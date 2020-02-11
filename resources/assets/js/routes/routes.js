@@ -43,13 +43,13 @@ const routes = [
   },
   {
       name: 'login',
-      path: '/projects/mps/login',
+      path: '/projects/mps_erp/login',
       component: AllComponents['LoginComponent']
   }
   ,
   {
     name: 'division',
-    path: '/projects/mps/division',
+    path: '/projects/mps_erp/division',
     component: AllComponents['DivisionComponent'],
     meta: {
         requireAuth: true
@@ -58,13 +58,13 @@ const routes = [
 ,
  {
     name: 'department',
-    path: '/projects/mps/department',
+    path: '/projects/mps_erp/department',
     component: AllComponents['DepartmentComponent']
   }
 ,
 {
     name: 'designation',
-    path: '/projects/mps/designation',
+    path: '/projects/mps_erp/designation',
     component: AllComponents['DesignationComponent']
   }
 ,
@@ -76,9 +76,3 @@ const routes = [
 ];
 
 export default routes;
-// export default new VueRouter({
-//     mode: 'history',
-//     base: '/projects/mps_erp',
-//     routes
-// })
-

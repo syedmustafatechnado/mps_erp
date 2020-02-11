@@ -20,8 +20,8 @@ Vue.use(BootstrapVue);
 // import DatatableFactory from 'vuejs-datatable';
 
 /*[START] SET BASE URL */
-axios.defaults.baseURL = 'http://localhost/projects/mps/';
-axios.defaults.baseApiUrl = 'http://localhost/projects/mps/api';
+axios.defaults.baseURL = 'http://localhost/projects/mps_erp/';
+axios.defaults.baseApiUrl = 'http://localhost/projects/mps_erp/api';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 /*[END] SET BASE URL */
@@ -34,19 +34,18 @@ import Routes from './routes/routes.js';
 import StoreData from './store.js';
 
 const store = new Vuex.Store(StoreData);
-let auth_token = StoreData.state.currentUser.token;
-if(auth_token)
-    axios.defaults.headers.common['Authorization'] = 'Bearer '+auth_token;
-// console.log(process.env);
+let auth_user = StoreData.state.currentUser;
+if(auth_user)
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+auth_user.token;
 const router = new VueRouter({ mode: 'history', routes: Routes});
 
 router.beforeEach((to,from,next)=>{
 	const requireAuth = to.matched.some(record => record.meta.requireAuth);
 	const currentUser = store.state.currentUser;
 	if(requireAuth && !currentUser){
-		next('/projects/mps/login');
-	}else if(to.path == '/projects/mps/login' && currentUser){
-		next('/projects/mps/');
+		next('/projects/mps_erp/login');
+	}else if(to.path == '/projects/mps_erp/login' && currentUser){
+		next('/projects/mps_erp/');
 	}else{
 		next();
 	}
