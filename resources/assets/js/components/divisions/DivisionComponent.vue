@@ -33,10 +33,12 @@
           <div class="table-responsive">
             <table id="example1" class="table-bordered table-striped custom-table leads-main-table">
               <thead>
-                <tr>
-                  <th>S.NO</th>
-                  <th>Name</th>
-                  <th>ACTIONS</th>
+                <tr role="row">
+                  <th class="th-sm sorting_asc" tabindex="0" aria-controls="dtBasicExample" rowspan="1" colspan="1" aria-label="Name" style="width: 198.4px;" aria-sort="none"> S.NO
+                    <i class="fas fa-sort float-right" aria-hidden="true"></i>
+                  </th>
+                  <th>Name  <i class="fas fa-sort float-right" aria-hidden="true"></i></th>
+                  <th>ACTIONS  <i class="fas fa-sort float-right" aria-hidden="true"></i></th>
                 </tr>
               </thead>
               <tbody>
@@ -48,17 +50,21 @@
                     data-target="#formModal"
                       :to="{name: 'edit', params: { id: division.id }}"
                       class="btn btn-primary"
-                    >Edit</router-link> -->
+                    >Edit</router-link>-->
                     <button
-                      class="btn btn-primary"
+                      class="btn btn-info btn-xs update"
                       data-toggle="modal"
                       data-target="#formModalEdit"
                       @click.prevent="setDivisionId(division.id,division.name)"
-                    >Edit</button>
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
                     <button
-                      class="btn btn-danger"
+                      class="btn btn-danger btn-xs delete"
                       @click.prevent="deleteDivision(division.id)"
-                    >Delete</button>
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -113,12 +119,7 @@
               <input type="hidden" id="insert" name="insert" value="insert" />
               <input type="hidden" name="user_id" id="user_id" />
               <input type="submit" id="action" name="action" class="btn btn-info" value="Add" />
-              <button
-                type="button"
-                @click="showAlert"
-                class="btn btn-danger"
-                data-dismiss="modal"
-              >Close</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
           </form>
         </div>
@@ -162,16 +163,10 @@
                   :variant="alert_type"
                 >{{message}}</b-alert>
               </p>
-
             </div>
             <div class="modal-footer">
               <input type="submit" id="action" name="action" class="btn btn-info" value="Update" />
-              <button
-                type="button"
-                @click="showAlert"
-                class="btn btn-danger"
-                data-dismiss="modal"
-              >Close</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
           </form>
         </div>
@@ -187,17 +182,18 @@ export default {
       divisions: this.$store.getters.divisions,
       division: {},
       flag_success: false,
-      dismissSecs: 3,
+      dismissSecs: 2000,
       dismissCountDown: 0,
       message: "",
-      division_id : 0,
-      division_name : "TEXT",
-      alert_type : "success"
+      division_id: 0,
+      division_name: "TEXT",
+      alert_type: "success"
     };
   },
   computed: {},
   created() {
-    console.log(this.$store.currentUser);
+    // console.log("HI IMA");
+    this.divisions = this.$store.getters.divisions;
     let uri = "/api/division/list";
     this.axios.get(uri).then(response => {
       this.divisions = response.data.data;
@@ -211,27 +207,22 @@ export default {
     showAlert() {
       this.dismissCountDown = this.dismissSecs;
     },
-    setDivisionId(id,name)
-    {
-
-           this.division_id = id;
-           this.division_name = name
-           console.log(this.division_name);
-
+    setDivisionId(id, name) {
+      this.division_id = id;
+      this.division_name = name;
+      console.log(this.division_name);
     },
     deleteDivision(id) {
-
       var flag = confirm("Are you sure?");
-      if(flag){
-      let uri = `/api/division/delete/${id}`;
-      this.axios.delete(uri).then(response => {
-        console.log(response);
-      });
+      if (flag) {
+        let uri = `/api/division/delete/${id}`;
+        this.axios.delete(uri).then(response => {
+          console.log(response);
+        });
       }
-
     },
     editDivision() {
-       let uri = "/api/division/create";
+      let uri = "/api/division/create";
       var form_data = new FormData();
 
       for (var key in this.division) {
@@ -241,34 +232,30 @@ export default {
         }
         form_data.append(key, postValue);
       }
-        form_data.append("id", this.division_id);
-        form_data.append("name", this.division_name);
-        form_data.append("action", 'edit');
-        this.axios.post(uri,form_data).then(response => {
-         console.log(response.data.message);
+      form_data.append("id", this.division_id);
+      form_data.append("name", this.division_name);
+      form_data.append("action", "edit");
+      this.axios
+        .post(uri, form_data)
+        .then(response => {
+          console.log(response.data.message);
           console.log(response.data.status);
 
-          if(response.data.api_status==0)
-          {
-              console.log("I am coming in");
-              this.alert_type = "danger";
+          if (response.data.api_status == 0) {
+            console.log("I am coming in");
+            this.alert_type = "danger";
+          } else {
+            this.alert_type = "success";
+            this.$store.commit("divisionEdit", response.data.data);
           }
-         else{
-               this.alert_type = "success";
-               this.$store.commit("divisionEdit",response.data.data);
-         }
 
-        this.flag_success = true;
-        this.dismissCountDown = this.dismissSecs;
-        this.message = response.data.message;
-
-
-      }).catch(e=>
-      {
+          this.flag_success = true;
+          this.dismissCountDown = this.dismissSecs;
+          this.message = response.data.message;
+        })
+        .catch(e => {
           console.log(e.message);
-      });
-
-
+        });
     },
     addDivision() {
       let uri = "/api/division/create";
@@ -283,7 +270,7 @@ export default {
         form_data.append(key, postValue);
       }
       form_data.append("action", "new");
-      this.axios.post(uri,form_data).then(response => {
+      this.axios.post(uri, form_data).then(response => {
         this.$store.commit("divisionAdd", response.data.data);
         this.flag_success = true;
         this.dismissCountDown = this.dismissSecs;

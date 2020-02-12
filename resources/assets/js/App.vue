@@ -4,7 +4,7 @@
 let url = "http://abc.com/";
 </script>
 <template>
-  <div class="container">
+  <div class="col-md-12">
 
 
     <app-top v-if="currentUser"></app-top>
@@ -36,8 +36,11 @@ let url = "http://abc.com/";
 <script>
 import Top from './components/layouts/Top.vue';
 import Footer from './components/layouts/Footer.vue';
-import LeftSidebar from './components/layouts/LeftSidebar';
-import RightSidebar from './components/layouts/RightSidebar';
+import LeftSidebar from './components/layouts/LeftSidebar.vue';
+import RightSidebar from './components/layouts/RightSidebar.vue';
+import DivisionComponent from './components/divisions/DivisionComponent.vue';
+import DesignationComponent from  './components/designations/DesignationComponent.vue';
+import DepartmentComponent from './components/departments/DepartmentComponent.vue';
 
     export default{
             components:{
@@ -45,7 +48,10 @@ import RightSidebar from './components/layouts/RightSidebar';
                      'app-top':Top,
                      'app-footer':Footer,
                      'app-leftsidebar': LeftSidebar,
-                     'app-rightsidebar': RightSidebar
+                     'app-rightsidebar': RightSidebar,
+                     'app-division' : DivisionComponent,
+                     'app-department' : DepartmentComponent,
+                     'app-designation' : DesignationComponent
                  },
                  computed: {
                   currentUser(){

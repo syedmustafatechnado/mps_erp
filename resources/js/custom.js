@@ -23,6 +23,8 @@
 //     }
 // });
 
+
+
 // PAYMENT SELECT DROPDOWN
 $(function() {
         $('.payment-method-list').change(function(){
@@ -37,6 +39,8 @@ $(function() {
     // $('.timepicker').mdtimepicker({
     //     theme:'teal'
     // }); //Initializes the time picker
+
+
 
     $("leads-main-table-wrapper tr").addClass("leads-active");
   });

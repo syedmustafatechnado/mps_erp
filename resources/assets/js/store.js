@@ -11,7 +11,8 @@ export default {
 		loading: false,
 		users: [],
         auth_error: null,
-        divisions:[]
+        divisions:[],
+        departments:[]
 	},
 	mutations: {
 
@@ -44,20 +45,17 @@ export default {
         divisionAdd(state,payload){
 
             state.divisions.push(payload);
-
-
+        },
+        departmentAdd(state,payload){
+            state.departments.push(payload);
         },
         divisionEdit(state,payload){
             state.divisions.pop();
             state.divisions.push(payload);
         },
         divisionSet(state,payload){
-            console.log('payload '+JSON.stringify(payload));
-            // console.log('divisions '+state.divisions);
-            state.divisions=payload;
-            console.log(state.divisions);
 
-        // state.divisions = payload;
+            state.divisions=payload;
 
         }
 

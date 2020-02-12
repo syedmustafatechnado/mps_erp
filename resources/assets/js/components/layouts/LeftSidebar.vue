@@ -1,7 +1,5 @@
 
 <template>
-
-
 <!-- ========== Left Sidebar Start ========== -->
 <div class="left-side-menu">
     <div class="slimscroll-menu">
@@ -53,10 +51,10 @@
                 </li>
 
                 <li>
-                    <a href="javascript: void(0);" data-toggle="collapse" data-target="#demo">
+                    <a href="javascript: void(0);" id="click" data-toggle="collapse" data-target="#demo">
                         <i class="fe-pocket"></i>
                         <span>Projects & Tasks</span>
-                        <span class="menu-arrow"></span>
+                        <span class="menu-arrow cli1"></span>
                     </a>
                     <ul class="nav-second-level collapse" id="demo"  >
                         <li>
@@ -85,10 +83,10 @@
                 </li>
                 <li>
 
-                    <a href="javascript: void(0);" data-toggle="collapse" data-target="#demo1">
+                    <a href="javascript: void(0);" id="click2" data-toggle="collapse" data-target="#demo1">
                         <i class="fe-pocket"></i>
                         <span>Divisions & Dept.</span>
-                        <span class="menu-arrow"></span>
+                        <span class="menu-arrow cli"></span>
                     </a>
                     <ul class="nav-second-level collapse" id="demo1" aria-expanded="false">
                         <li>
@@ -103,9 +101,7 @@
                             <router-link :to="{name:'designation'}" class="nav-link">Designation</router-link>
                             <!-- <a href="">Designations</a> -->
                         </li>
-                         <li class="nav-item">
-                            <a href="#" @click.prevent="logout" class="nav-link">Logout</a>
-                        </li>
+
                     </ul>
                 </li>
 
@@ -126,12 +122,33 @@
 
 <script>
 
+
+
 export default {
 
+    mounted(){
+
+            $("#menulink").on('click',function(){
+                $(".right-bar").show();
+            });
+
+        $('.right-bar-toggle').on('click',function(){$('.right-bar').hide()});
+
+
+
+  $("#click").click(function(){
+    $(".cli1").toggleClass("menu-arrow3");
+  });
+
+  $("#click2").click(function(){
+    $(".cli").toggleClass("menu-arrow2");
+  });
+
+    },
       methods: {
               logout(){
                   this.$store.commit('logout');
-                  this.$router.push({path:'/projects/mps_erp/login'});
+                  this.$router.push({path:'/login'});
               },
                created()
               {

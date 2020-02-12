@@ -16,7 +16,7 @@ mix.js([
 
 'resources/assets/js/app.js',
    'resources/js/aos.js',
-    'resources/js/app.min.js',
+    // 'resources/js/app.min.js',
 //    'resources/js/moment-with-locales.min.js',
    'resources/js/bootstrap-datetimepicker.min.js',
    'resources/js/bootstrap-table.js',

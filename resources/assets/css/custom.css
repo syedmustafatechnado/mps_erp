@@ -24,11 +24,38 @@ body.authentication-bg-pattern{
 	height: -o-fill-available;
 	height: 100vh;
 }
+.dropdown-menu {
+    position: relative;
+    margin-right: -77px;
+}
+.mr-1, .mx-1 {
+    margin-right: 0.575rem!important;
+}
+.enlarged .left-side-menu {
+    position: fixed !important;
+}
+.menu-arrow2 {
+    -webkit-transform: rotate(90deg) !important;
+    transform: rotate(90deg) !important;
+}
+.menu-arrow3 {
+    -webkit-transform: rotate(90deg) !important;
+    transform: rotate(90deg) !important;
+}
 body.authentication-bg-pattern .account-pages{
 	width: 100%;
 }
 .login-card{
 	max-width: 800px;
+}
+.right-bar{
+    display: none;
+}
+.alert-dismissible {
+    padding: 15px 10px;
+    width: 100%;
+    align-items: center;
+    text-align: center;
 }
 .login-card-head p{
 	font-family: 'Montserrat', sans-serif;

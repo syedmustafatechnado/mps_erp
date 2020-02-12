@@ -82,14 +82,22 @@
 
 
 </template>
+
+
+
 <script>
 	import {login} from '../../helpers/auth';
 	export default{
 		name:"login",
 		beforeMount(){
+
 			this.$store.state.welcomeMessage = "Hello world";
 		console.log(this.$store.getters.welcome);
-		},
+        },
+        mounted(){
+                $("body").addClass("authentication-bg authentication-bg-pattern");
+
+        },
 		data(){
 			return {
 				form:{
@@ -110,7 +118,7 @@
 
 				if(res.status){
 					this.$store.commit('loginSuccess',res);
-					this.$router.push({path:'/projects/mps_erp/'});
+					this.$router.push({path:'/'});
 				}else{
 					alert(res.message);
 				}

@@ -1,8 +1,10 @@
 <template>
+
+
  <div>
-  <div class="right-bar">
+  <div class="right-bar" style="right: 0;">
     <div class="rightbar-title">
-      <a href="javascript:void(0);" class="right-bar-toggle float-right">
+      <a  id="menulink" class="right-bar-toggle float-right">
         <i class="dripicons-cross noti-icon"></i>
       </a>
       <h5 class="m-0 text-white">Profile</h5>
@@ -135,7 +137,7 @@ export default {
       methods: {
               logout(){
                   this.$store.commit('logout');
-                  this.$router.push({path:'/projects/mps_erp/login'});
+                  this.$router.push({path:'/login'});
               },
               created()
               {

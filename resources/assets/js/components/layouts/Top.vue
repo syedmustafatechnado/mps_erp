@@ -111,7 +111,7 @@
         </li>
 
         <li class="dropdown notification-list">
-            <a class="nav-link right-bar-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+            <a class="nav-link right-bar-toggle nav-user mr-0 waves-effect waves-light" id="menulink" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <img src="https://cdn1.iconfinder.com/data/icons/symbol-color-users-1/32/user_2-link-512.png" alt="user-image" class="rounded-circle">
                 <span class="pro-user-name ml-1">
                     Admin <i class="mdi mdi-chevron-down"></i>
@@ -139,42 +139,18 @@
 
     <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
         <li>
-            <button class="button-menu-mobile waves-effect waves-light">
+            <button class="button-menu-mobile waves-effect waves-light" @click="addLeftBarTog">
                 <i class="fe-menu"></i>
             </button>
         </li>
 
         <li class="dropdown d-none d-lg-block">
-            <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                Create New
-                <i class="mdi mdi-chevron-down"></i>
-            </a>
-            <div class="dropdown-menu">
-                <!-- item-->
-                <a href="javascript:void(0);" data-toggle="modal" data-target="#leadModal" class="dropdown-item">
-                    <i class="fe-briefcase mr-1"></i>
-                    <span>Lead</span>
-                </a>
-
-                <!-- item-->
-                <a href="javascript:void(0);" data-toggle="modal" data-target="#orderModal" class="dropdown-item">
-                    <i class="fe-bar-chart-line- mr-1"></i>
-                    <span>Order</span>
-                </a>
-
-                <!-- item-->
-                <a href="" class="dropdown-item">
-                    <i class="fe-settings mr-1"></i>
-                    <span>Invoice</span>
-                </a>
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item">
-                    <i class="fe-headphones mr-1"></i>
-                    <span>Task</span>
-                </a>
-
-            </div>
+            <b-nav-item-dropdown text="Lang" right>
+        <b-dropdown-item href="#"><i class="fe-briefcase mr-1"></i>Lead</b-dropdown-item>
+        <b-dropdown-item href="#"><i class="fe-bar-chart-line- mr-1"></i>Order</b-dropdown-item>
+        <b-dropdown-item href="#"><i class="fe-settings mr-1"></i>Invoice</b-dropdown-item>
+        <b-dropdown-item href="#"><i class="fe-headphones mr-1"></i>Task</b-dropdown-item>
+      </b-nav-item-dropdown>
         </li>
 
 
@@ -289,8 +265,27 @@
 </div>
   </template>
 <script>
+
+
     export default {
 
+  mounted(){
+    $(document).ready(function(){
+$("body").removeClass("authentication-bg authentication-bg-pattern");
+        $("#menulink").on('click',function(){
+            $(".right-bar").show();
+        });
+    });
 
+
+        },
+        methods:{
+            addLeftBarTog(){
+                $("body").toggleClass("enlarged");
+                $(".d-lg-block").toggleClass("show");
+
+            }
+
+        }
     }
 </script>
