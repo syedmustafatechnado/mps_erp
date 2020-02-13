@@ -182,7 +182,7 @@ export default {
       divisions: this.$store.getters.divisions,
       division: {},
       flag_success: false,
-      dismissSecs: 2000,
+      dismissSecs: 3,
       dismissCountDown: 0,
       message: "",
       division_id: 0,

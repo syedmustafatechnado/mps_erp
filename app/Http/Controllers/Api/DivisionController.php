@@ -45,9 +45,11 @@ class DivisionController extends Controller
     {
 
         $inputs = $request->all();
+        //dd($inputs);
         if($request->action=='edit')
         {
             $obj = Division::find($request->id);
+
             $obj->name = $request->name;
             $obj->save();
             $this->response = array(

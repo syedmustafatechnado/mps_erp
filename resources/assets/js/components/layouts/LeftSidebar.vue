@@ -51,20 +51,26 @@
                 </li>
 
                 <li>
-                    <a href="javascript: void(0);" id="click" data-toggle="collapse" data-target="#demo">
+                    <a href="javascript: void(0);" id="click" v-b-toggle.collapse-2 data-toggle="">
                         <i class="fe-pocket"></i>
                         <span>Projects & Tasks</span>
                         <span class="menu-arrow cli1"></span>
                     </a>
-                    <ul class="nav-second-level collapse" id="demo"  >
+                    <b-collapse b-collapse  id="collapse-2" >
+
+                    <ul class="nav-second-level " >
                         <li>
-                            <a href="">Project</a>
+                           <router-link :to="{name:'division'}" class="nav-link">Projects</router-link>
                         </li>
                         <li>
-                            <a href="">Task</a>
+                           <router-link :to="{name:'division'}" class="nav-link">tasks</router-link>
                         </li>
                     </ul>
+                  </b-collapse>
+
                 </li>
+
+
 
                 <li>
                     <a href="">
@@ -83,12 +89,13 @@
                 </li>
                 <li>
 
-                    <a href="javascript: void(0);" id="click2" data-toggle="collapse" data-target="#demo1">
+                    <a href="javascript: void(0);" v-b-toggle.collapse-1 data-toggle="" id="click2" data-target="#demo1">
                         <i class="fe-pocket"></i>
                         <span>Divisions & Dept.</span>
                         <span class="menu-arrow cli"></span>
                     </a>
-                    <ul class="nav-second-level collapse" id="demo1" aria-expanded="false">
+                    <b-collapse b-collapse  id="collapse-1" >
+                    <ul class="nav-second-level mt-2 " aria-expanded="">
                         <li>
                              <router-link :to="{name:'division'}" class="nav-link">Division</router-link>
                             <!-- <a href="">Division</a> -->
@@ -103,8 +110,13 @@
                         </li>
 
                     </ul>
+                    </b-collapse>
                 </li>
+<li>
 
+
+
+</li>
             </ul>
 
         </div>
@@ -133,6 +145,8 @@ export default {
             });
 
         $('.right-bar-toggle').on('click',function(){$('.right-bar').hide()});
+
+
 
 
 

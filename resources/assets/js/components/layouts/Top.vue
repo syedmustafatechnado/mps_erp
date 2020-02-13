@@ -282,7 +282,7 @@ $("body").removeClass("authentication-bg authentication-bg-pattern");
         methods:{
             addLeftBarTog(){
                 $("body").toggleClass("enlarged");
-                $(".d-lg-block").toggleClass("show");
+            // $(".d-lg-block").toggleClass("show");
 
             }
 

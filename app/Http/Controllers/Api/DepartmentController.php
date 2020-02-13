@@ -16,7 +16,7 @@ class DepartmentController extends Controller
 
     public function getList()
     {
-        $departments = Department::where('status', 1)->get();
+        $departments = Department::with('division')->where('status', 1)->get();
         if ($departments->count() == 0) {
 
             $this->response = array(
@@ -38,8 +38,10 @@ class DepartmentController extends Controller
     {
 
         $inputs = $request->all();
+        //dd($inputs);
         if($request->action=='edit')
         {
+
             $obj = Department::find($request->id);
             $obj->name = $request->name;
             $obj->save();

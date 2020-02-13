@@ -57,6 +57,9 @@ export default {
 
             state.divisions=payload;
 
+        },
+        departmentSet(state,payload){
+            state.departments = payload;
         }
 
 
@@ -83,13 +86,17 @@ export default {
         divisions(state)
         {
             return state.divisions;
+        },
+        departments(state)
+        {
+            return state.departments;
         }
 
 	},
 	actions: {
 		login(context){
 			context.commit("login");
-		}
+        }
 	}
 
 }
