@@ -66,7 +66,7 @@
                       class="btn btn-info btn-xs update"
                       data-toggle="modal"
                       data-target="#formModalEdit"
-                      @click.prevent="setDesignation(index,designation.name)"
+                      @click.prevent="setDesignation(index)"
                     >
                       <i class="fas fa-edit"></i>
                     </button>
@@ -194,6 +194,7 @@
                     v-for="division in divisions"
                     :value="division.id"
                     :key="division.id"
+
                   >{{ division.name }}</option>
                 </select>
 
@@ -358,7 +359,7 @@ export default {
           console.log(e.message);
         });
     },
-    setDesignation(i, name) {
+    setDesignation(i) {
 
     //   console.log(name);
     //   this.edit_designation.name = name;

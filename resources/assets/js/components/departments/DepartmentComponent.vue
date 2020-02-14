@@ -164,11 +164,10 @@
                 <label class="control-label col-md-4">Division Name</label>
 
             <!-- :selected="division.id == edit_department.division.id" -->
-                <select ref="my_input" id="division_id" class="form-control">
+                <select v-model="edit_department.division_id" ref="my_input" id="division_id" class="form-control">
                   <option
                     v-for="division in divisions"
                     :value="division.id"
-
                     :key="division.id"
                   >{{ division.name }}</option>
                 </select>
