@@ -44,6 +44,7 @@ class DepartmentController extends Controller
 
             $obj = Department::find($request->id);
             $obj->name = $request->name;
+            $obj->division_id = $request->division_id;
             $obj->save();
             $this->response = array(
                 'api_status' => 1,

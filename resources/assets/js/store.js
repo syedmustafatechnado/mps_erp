@@ -12,7 +12,8 @@ export default {
 		users: [],
         auth_error: null,
         divisions:[],
-        departments:[]
+        departments:[],
+        designations:[]
 	},
 	mutations: {
 
@@ -21,14 +22,21 @@ export default {
 			state.loading = true;
 			state.auth_error = null;
 
-		},
+        },
+        setLoading(state, loading) {
+            state.loading = loading
+        },
 		loginSuccess(state,payload){
+
+
+
 			state.loading = false;
 			state.auth_error = false;
 			state.isLoggedIn = true;
-			state.currentUser = Object.assign({},payload.user,{token:payload.token});
+            state.currentUser = Object.assign({},payload.user,{token:payload.token});
+            localStorage.setItem('user',JSON.stringify(state.currentUser));
 
-			localStorage.setItem('user',JSON.stringify(state.currentUser));
+
 
 		},
 		loginFailed(state,payload){
@@ -42,24 +50,36 @@ export default {
 			state.isLoggedIn = false;
 			state.currentUser = null;
         },
+        /* Division */
         divisionAdd(state,payload){
 
             state.divisions.push(payload);
         },
-        departmentAdd(state,payload){
-            state.departments.push(payload);
-        },
+
         divisionEdit(state,payload){
             state.divisions.pop();
             state.divisions.push(payload);
         },
         divisionSet(state,payload){
-
+            console.log("In div set");
             state.divisions=payload;
 
         },
+         /* Department */
+        departmentAdd(state,payload){
+            state.departments.push(payload);
+        },
         departmentSet(state,payload){
+
             state.departments = payload;
+        },
+        /* Designation */
+        designationAdd(state,payload){
+            state.designations.push(payload);
+        },
+        designationSet(state,payload){
+
+            state.designations = payload;
         }
 
 

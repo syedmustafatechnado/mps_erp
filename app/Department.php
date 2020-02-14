@@ -15,4 +15,5 @@ class Department extends Model
     {
         return $this->belongsTo('App\Division');
     }
+
 }

@@ -179,7 +179,7 @@
 export default {
   data() {
     return {
-      divisions: this.$store.getters.divisions,
+      divisions: [],
       division: {},
       flag_success: false,
       dismissSecs: 3,
@@ -193,16 +193,34 @@ export default {
   computed: {},
   created() {
     // console.log("HI IMA");
-    this.divisions = this.$store.getters.divisions;
-    let uri = "/api/division/list";
-    this.axios.get(uri).then(response => {
-      this.divisions = response.data.data;
-      this.$store.commit("divisionSet", response.data.data);
-    });
+   // this.divisions = this.$store.getters.divisions;
+    // let uri = "/api/division/list";
+    // this.axios.get(uri).then(response => {
+    //   this.divisions = response.data.data;
+    //   this.$store.commit("divisionSet", response.data.data);
+    // });
+    this.getDivisions();
   },
   methods: {
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
+    },
+      getDivisions(){
+
+      let uri = "/api/division/list";
+      console.log(this.$store.getters.currentUser.token);
+      var tkn =this.$store.getters.currentUser.token;
+       let headers = {
+        'headers':{
+          'Authorization' : "Bearer "+tkn
+        }
+      };
+
+       this.axios.get(uri,headers).then(response => {
+         console.log(response.data);
+       this.divisions =  response.data.data;
+      this.$store.commit("divisionSet", response.data.data);
+    });
     },
     showAlert() {
       this.dismissCountDown = this.dismissSecs;

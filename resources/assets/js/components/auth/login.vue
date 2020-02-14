@@ -109,23 +109,19 @@
 		},
 		methods:{
 			authentication(){
-
 			this.$store.dispatch('login');
 
-            console.log(this.$data.form);
 			login(this.$data.form)
 			.then((res)=>{
-
 				if(res.status){
 					this.$store.commit('loginSuccess',res);
-					this.$router.push({path:'/'});
+					this.$router.push({path:'/division'});
 				}else{
 					alert(res.message);
 				}
 
 			})
 			.catch((error)=>{
-
 				this.$store.commit('loginFailed',{error});
 			})
 		}

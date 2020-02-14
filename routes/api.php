@@ -28,6 +28,11 @@ Route::get('/department/list','DepartmentController@getList');
 Route::post('/department/create','DepartmentController@addDepartment');
 Route::delete('/department/delete/{id}','DepartmentController@deleteDepartment');
 
+// Designation Routes
+Route::post('/designation/create','DesignationController@addDesignation');
+Route::get('designation/list','DesignationController@getList');
+Route::delete('/designation/delete/{id}','DesignationController@deleteDesignation');
+
 
 });
 

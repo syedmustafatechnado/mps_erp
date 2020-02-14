@@ -14,5 +14,8 @@ class Division extends Model
 
         return $this->hasMany('App\Department');
     }
+    public function designations(){
+        return $this->hasMany('App\Designation');
+    }
 
 }

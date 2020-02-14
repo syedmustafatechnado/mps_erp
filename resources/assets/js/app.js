@@ -34,14 +34,12 @@ import Routes from './routes/routes.js';
 import StoreData from './store.js';
 
 const store = new Vuex.Store(StoreData);
-let auth_user = StoreData.state.currentUser;
-if(auth_user)
-    axios.defaults.headers.common['Authorization'] = 'Bearer '+auth_user.token;
-const router = new VueRouter({ mode: 'history',base:'projects/mps_erp', routes: Routes});
 
-router.beforeEach((to,from,next)=>{
-	const requireAuth = to.matched.some(record => record.meta.requireAuth);
-	const currentUser = store.state.currentUser;
+    const router = new VueRouter({ mode: 'history',base:'projects/mps_erp', routes: Routes});
+
+    router.beforeEach( (to,from,next)=>{
+	const requireAuth =  to.matched.some(record => record.meta.requireAuth);
+	const currentUser =   store.state.currentUser;
 	if(requireAuth && !currentUser){
 
 		next('/login');
