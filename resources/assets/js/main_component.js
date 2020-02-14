@@ -9,6 +9,7 @@ import DivisionComponent from  './components/divisions/DivisionComponent.vue';
 import DepartmentComponent from  './components/departments/DepartmentComponent.vue';
 import DesignationComponent from  './components/designations/DesignationComponent.vue';
 import UpdateUser from './components/auth/UpdateUser.vue';
+import UserComponent from './components/users/UserComponent.vue';
 
 
 
@@ -23,7 +24,8 @@ const components = {
     DivisionComponent:DivisionComponent,
     DepartmentComponent:DepartmentComponent,
     DesignationComponent:DesignationComponent,
-    UpdateUser:UpdateUser
+    UpdateUser:UpdateUser,
+    UserComponent:UserComponent
 }
 
 export default components;

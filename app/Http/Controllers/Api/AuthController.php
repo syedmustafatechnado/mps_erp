@@ -12,6 +12,7 @@ class AuthController extends Controller
 {
 	public $successStatus = 200;
     public $response = array();
+    public $failedStatus = 500;
 
     public function login(Request $request){
     	$auth = Auth::attempt($request->all());
@@ -50,6 +51,25 @@ class AuthController extends Controller
             $this->response = array(
                 'status' => false,
                 'message' => 'Failed to SignUp!'
+            );
+        }
+        return response()->json($this->response, $this->successStatus);
+    }
+
+    public function getList(){
+        $users = User::all();
+        if ($users->count() == 0) {
+
+            $this->response = array(
+                'api_status' => 0,
+                'message' => 'No record Found',
+
+            );
+        } else {
+            $this->response = array(
+                'api_status' => 1,
+                'message' => 'Your Departments Results !',
+                'data' => $users,
             );
         }
         return response()->json($this->response, $this->successStatus);

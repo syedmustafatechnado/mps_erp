@@ -34,11 +34,27 @@
             <table id="example1" class="table-bordered table-striped custom-table leads-main-table">
               <thead>
                 <tr role="row">
-                  <th class="th-sm sorting_asc" tabindex="0" aria-controls="dtBasicExample" rowspan="1" colspan="1" aria-label="Name" style="width: 198.4px;" aria-sort="none"> S.NO
+                  <th
+                    class="th-sm sorting_asc"
+                    tabindex="0"
+                    aria-controls="dtBasicExample"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label="Name"
+                    style="width: 198.4px;"
+                    aria-sort="none"
+                  >
+                    S.NO
                     <i class="fas fa-sort float-right" aria-hidden="true"></i>
                   </th>
-                  <th>Name  <i class="fas fa-sort float-right" aria-hidden="true"></i></th>
-                  <th>ACTIONS  <i class="fas fa-sort float-right" aria-hidden="true"></i></th>
+                  <th>
+                    Name
+                    <i class="fas fa-sort float-right" aria-hidden="true"></i>
+                  </th>
+                  <th>
+                    ACTIONS
+                    <i class="fas fa-sort float-right" aria-hidden="true"></i>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -193,7 +209,7 @@ export default {
   computed: {},
   created() {
     // console.log("HI IMA");
-   // this.divisions = this.$store.getters.divisions;
+    // this.divisions = this.$store.getters.divisions;
     // let uri = "/api/division/list";
     // this.axios.get(uri).then(response => {
     //   this.divisions = response.data.data;
@@ -205,22 +221,21 @@ export default {
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
     },
-      getDivisions(){
-
+    getDivisions() {
       let uri = "/api/division/list";
       console.log(this.$store.getters.currentUser.token);
-      var tkn =this.$store.getters.currentUser.token;
-       let headers = {
-        'headers':{
-          'Authorization' : "Bearer "+tkn
+      var tkn = this.$store.getters.currentUser.token;
+      let headers = {
+        headers: {
+          Authorization: "Bearer " + tkn
         }
       };
 
-       this.axios.get(uri,headers).then(response => {
-         console.log(response.data);
-       this.divisions =  response.data.data;
-      this.$store.commit("divisionSet", response.data.data);
-    });
+      this.axios.get(uri, headers).then(response => {
+        console.log(response.data);
+        this.divisions = response.data.data;
+        this.$store.commit("divisionSet", response.data.data);
+      });
     },
     showAlert() {
       this.dismissCountDown = this.dismissSecs;
@@ -231,7 +246,7 @@ export default {
       console.log(this.division_name);
     },
     deleteDivision(id) {
-        var tkn = this.$store.getters.currentUser.token;
+      var tkn = this.$store.getters.currentUser.token;
       let headers = {
         headers: {
           Authorization: "Bearer " + tkn
@@ -240,7 +255,7 @@ export default {
       var flag = confirm("Are you sure?");
       if (flag) {
         let uri = `/api/division/delete/${id}`;
-        this.axios.delete(uri,headers).then(response => {
+        this.axios.delete(uri, headers).then(response => {
           console.log(response);
         });
       }
@@ -266,7 +281,7 @@ export default {
       form_data.append("name", this.division_name);
       form_data.append("action", "edit");
       this.axios
-        .post(uri, form_data,headers)
+        .post(uri, form_data, headers)
         .then(response => {
           console.log(response.data.message);
           console.log(response.data.status);
@@ -288,7 +303,7 @@ export default {
         });
     },
     addDivision() {
-        var tkn = this.$store.getters.currentUser.token;
+      var tkn = this.$store.getters.currentUser.token;
       let headers = {
         headers: {
           Authorization: "Bearer " + tkn
@@ -306,7 +321,7 @@ export default {
         form_data.append(key, postValue);
       }
       form_data.append("action", "new");
-      this.axios.post(uri, form_data,headers).then(response => {
+      this.axios.post(uri, form_data, headers).then(response => {
         this.$store.commit("divisionAdd", response.data.data);
         this.flag_success = true;
         this.dismissCountDown = this.dismissSecs;
