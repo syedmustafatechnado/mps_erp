@@ -20,8 +20,8 @@ Vue.use(BootstrapVue);
 // import DatatableFactory from 'vuejs-datatable';
 
 /*[START] SET BASE URL */
-axios.defaults.baseURL = 'http://localhost/projects/mps_erp/';
-axios.defaults.baseApiUrl = 'http://localhost/projects/mps_erp/api';
+axios.defaults.baseURL = process.env.MIX_APP_URL;
+axios.defaults.baseApiUrl = process.env.MIX_APP_URL+'api';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 /*[END] SET BASE URL */
@@ -35,7 +35,7 @@ import StoreData from './store.js';
 
 const store = new Vuex.Store(StoreData);
 
-    const router = new VueRouter({ mode: 'history',base:'projects/mps_erp', routes: Routes});
+    const router = new VueRouter({ mode: 'history',base: process.env.MIX_ROUTE_BASE, routes: Routes});
 
     router.beforeEach( (to,from,next)=>{
 	const requireAuth =  to.matched.some(record => record.meta.requireAuth);
