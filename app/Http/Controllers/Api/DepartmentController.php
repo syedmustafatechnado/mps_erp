@@ -57,7 +57,7 @@ class DepartmentController extends Controller
         }
         else{
 
-            // $divisions = Division::where('status', 1)->get();
+
             $departments = Department::create($inputs);
             $this->response = array(
                 'api_status' => 1,

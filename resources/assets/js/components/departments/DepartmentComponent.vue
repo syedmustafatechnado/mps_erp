@@ -41,9 +41,7 @@
                 </tr>
               </thead>
               <tbody>
-
                 <tr v-for="(department,index) in departments" :key="department.id">
-
                   <td>{{ department.id }}</td>
                   <td>{{ department.division.name }}</td>
                   <td>{{ department.name }}</td>
@@ -163,8 +161,13 @@
               <div class="form-group">
                 <label class="control-label col-md-4">Division Name</label>
 
-            <!-- :selected="division.id == edit_department.division.id" -->
-                <select v-model="edit_department.division_id" ref="my_input" id="division_id" class="form-control">
+                <!-- :selected="division.id == edit_department.division.id" -->
+                <select
+                  v-model="edit_department.division_id"
+                  ref="my_input"
+                  id="division_id"
+                  class="form-control"
+                >
                   <option
                     v-for="division in divisions"
                     :value="division.id"
@@ -226,7 +229,6 @@ export default {
   },
   computed: {},
   created() {
-
     this.getDepartments();
     this.getDivisions();
   },
@@ -242,8 +244,7 @@ export default {
       this.dismissCountDown = this.dismissSecs;
     },
     addDepartment() {
-
-      var tkn =this.$store.getters.currentUser.token;
+      var tkn = this.$store.getters.currentUser.token;
       let uri = "/api/department/create";
 
       var form_data = new FormData();
@@ -268,11 +269,10 @@ export default {
       });
     },
     editDepartment() {
-
-        var tkn =this.$store.getters.currentUser.token;
-        let headers = {
-        'headers':{
-          'Authorization' : "Bearer "+tkn
+      var tkn = this.$store.getters.currentUser.token;
+      let headers = {
+        headers: {
+          Authorization: "Bearer " + tkn
         }
       };
 
@@ -294,7 +294,7 @@ export default {
       // form_data.append("division_id", this.division_id);
       form_data.append("action", "edit");
       this.axios
-        .post(uri, form_data,headers)
+        .post(uri, form_data, headers)
         .then(response => {
           console.log(response.data.message);
           console.log(response.data.status);
@@ -316,23 +316,22 @@ export default {
         });
     },
     setDepartment(i) {
-
       console.log(this.departments[i]);
       this.edit_department = this.departments[i];
       console.log(this.edit_department);
     },
     deleteDepartment(id) {
-         var tkn =this.$store.getters.currentUser.token;
-         let headers = {
-        'headers':{
-          'Authorization' : "Bearer "+tkn
+      var tkn = this.$store.getters.currentUser.token;
+      let headers = {
+        headers: {
+          Authorization: "Bearer " + tkn
         }
       };
 
       var flag = confirm("Are you sure?");
       if (flag) {
         let uri = `/api/department/delete/${id}`;
-        this.axios.delete(uri,headers).then(response => {
+        this.axios.delete(uri, headers).then(response => {
           console.log(response);
         });
       }
@@ -343,30 +342,30 @@ export default {
         event.target.options[event.target.options.selectedIndex].text;
     },
     getDivisions() {
-         var tkn =this.$store.getters.currentUser.token;
-         let headers = {
-        'headers':{
-          'Authorization' : "Bearer "+tkn
+      var tkn = this.$store.getters.currentUser.token;
+      let headers = {
+        headers: {
+          Authorization: "Bearer " + tkn
         }
       };
 
       let uri = "/api/division/list";
-      this.axios.get(uri,headers).then(response => {
+      this.axios.get(uri, headers).then(response => {
         console.log("set division");
         this.divisions = response.data.data;
         this.$store.commit("divisionSet", response.data.data);
       });
     },
     getDepartments() {
-         var tkn =this.$store.getters.currentUser.token;
-         let headers = {
-        'headers':{
-          'Authorization' : "Bearer "+tkn
+      var tkn = this.$store.getters.currentUser.token;
+      let headers = {
+        headers: {
+          Authorization: "Bearer " + tkn
         }
       };
 
       let uri = "/api/department/list";
-      this.axios.get(uri,headers).then(response => {
+      this.axios.get(uri, headers).then(response => {
         this.departments = response.data.data;
         this.$store.commit("departmentSet", response.data.data);
       });

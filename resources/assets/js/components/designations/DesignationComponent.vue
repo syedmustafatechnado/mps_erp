@@ -50,11 +50,7 @@
                   <td>{{ designation.department.name }}</td>
                   <td>{{ designation.name }}</td>
                   <td>
-                    <button
-                      class="btn btn-info btn-xs"
-                      data-toggle="modal"
-
-                    >
+                    <button class="btn btn-info btn-xs" data-toggle="modal">
                       <i class="fas fa-edit"></i>
                     </button>
                     <button class="btn btn-info btn-xs view">
@@ -194,7 +190,6 @@
                     v-for="division in divisions"
                     :value="division.id"
                     :key="division.id"
-
                   >{{ division.name }}</option>
                 </select>
 
@@ -263,7 +258,7 @@ export default {
       division_name: "",
       department_name: "",
       division_id: "",
-      department_id:""
+      department_id: ""
     };
   },
   created() {
@@ -343,7 +338,7 @@ export default {
       this.axios
         .post(uri, form_data, headers)
         .then(response => {
-            //console.log(response.data.api_status);
+          //console.log(response.data.api_status);
           if (response.data.api_status == 0) {
             this.alert_type = "danger";
           } else {
@@ -360,13 +355,11 @@ export default {
         });
     },
     setDesignation(i) {
-
-    //   console.log(name);
-    //   this.edit_designation.name = name;
-    //   console.log(this.designations[i]);
-    //   this.designation = this.designation[i];
-       this.edit_designation = this.designations[i];
-
+      //   console.log(name);
+      //   this.edit_designation.name = name;
+      //   console.log(this.designations[i]);
+      //   this.designation = this.designation[i];
+      this.edit_designation = this.designations[i];
     },
     getDivisions() {
       var tkn = this.$store.getters.currentUser.token;

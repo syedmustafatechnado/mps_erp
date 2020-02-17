@@ -36,13 +36,15 @@ Route::delete('/designation/delete/{id}','DesignationController@deleteDesignatio
 
 // Users Routes
 Route::get('user/list','AuthController@getList');
+Route::delete('user/delete/{id}','AuthController@deleteUser');
+Route::post('user/create','AuthController@addUser');
 
 });
 
-Route::post('/post/create', 'PostController@store');
-Route::get('/post/edit/{id}', 'PostController@edit');
-Route::post('/post/update/{id}', 'PostController@update');
-Route::delete('/post/delete/{id}', 'PostController@delete');
-Route::get('/posts', 'PostController@index');
-Route::get('/users', 'Api\UserController@index');
+// Route::post('/post/create', 'PostController@store');
+// Route::get('/post/edit/{id}', 'PostController@edit');
+// Route::post('/post/update/{id}', 'PostController@update');
+// Route::delete('/post/delete/{id}', 'PostController@delete');
+// Route::get('/posts', 'PostController@index');
+// Route::get('/users', 'Api\UserController@index');
 
