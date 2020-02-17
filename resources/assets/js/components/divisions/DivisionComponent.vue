@@ -203,7 +203,12 @@ export default {
       message: "",
       division_id: 0,
       division_name: "TEXT",
-      alert_type: "success"
+      alert_type: "success",
+      headers: {
+        headers: {
+          Authorization: "Bearer " + this.$store.getters.currentUser.token
+        }
+      }
     };
   },
   computed: {},
@@ -223,15 +228,7 @@ export default {
     },
     getDivisions() {
       let uri = "/api/division/list";
-      console.log(this.$store.getters.currentUser.token);
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
-
-      this.axios.get(uri, headers).then(response => {
+      this.axios.get(uri, this.headers).then(response => {
         console.log(response.data);
         this.divisions = response.data.data;
         this.$store.commit("divisionSet", response.data.data);
@@ -246,27 +243,15 @@ export default {
       console.log(this.division_name);
     },
     deleteDivision(id) {
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
       var flag = confirm("Are you sure?");
       if (flag) {
         let uri = `/api/division/delete/${id}`;
-        this.axios.delete(uri, headers).then(response => {
+        this.axios.delete(uri, this.headers).then(response => {
           console.log(response);
         });
       }
     },
     editDivision() {
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
       let uri = "/api/division/create";
       var form_data = new FormData();
 
@@ -281,7 +266,7 @@ export default {
       form_data.append("name", this.division_name);
       form_data.append("action", "edit");
       this.axios
-        .post(uri, form_data, headers)
+        .post(uri, form_data, this.headers)
         .then(response => {
           console.log(response.data.message);
           console.log(response.data.status);
@@ -303,12 +288,6 @@ export default {
         });
     },
     addDivision() {
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
       let uri = "/api/division/create";
 
       var form_data = new FormData();
@@ -321,7 +300,7 @@ export default {
         form_data.append(key, postValue);
       }
       form_data.append("action", "new");
-      this.axios.post(uri, form_data, headers).then(response => {
+      this.axios.post(uri, form_data, this.headers).then(response => {
         this.$store.commit("divisionAdd", response.data.data);
         this.flag_success = true;
         this.dismissCountDown = this.dismissSecs;

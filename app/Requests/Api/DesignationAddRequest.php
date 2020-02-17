@@ -36,7 +36,6 @@ class DesignationAddRequest extends FormRequest
 
         $rules = [
             'name' => 'required',
-            'division_id' => 'required',
             'department_id' => 'required'
         ];
 

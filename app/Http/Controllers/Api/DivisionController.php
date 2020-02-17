@@ -23,7 +23,7 @@ class DivisionController extends Controller
 
     public function getList()
     {
-        $divisions = Division::where('status', 1)->get();
+        $divisions = Division::with('departments')->where('status', 1)->get();
         if ($divisions->count() == 0) {
 
             $this->response = array(

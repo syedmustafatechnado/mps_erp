@@ -15,14 +15,11 @@ class CreateDesignationsTable extends Migration
     {
         Schema::create('designations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('division_id')->nullable();
             $table->unsignedBigInteger('department_id')->nullable();
             $table->string('name');
             $table->integer('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('division_id')->references('id')->on('divisions')
-            ->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments')
             ->onDelete('cascade');
         });

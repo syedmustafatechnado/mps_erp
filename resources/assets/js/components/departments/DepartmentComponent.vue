@@ -224,7 +224,12 @@ export default {
       edit_department: {},
       division_name: "",
       department_name: "",
-      division_id: ""
+      division_id: "",
+      headers: {
+        headers: {
+          Authorization: "Bearer " + this.$store.getters.currentUser.token
+        }
+      }
     };
   },
   computed: {},
@@ -244,7 +249,6 @@ export default {
       this.dismissCountDown = this.dismissSecs;
     },
     addDepartment() {
-      var tkn = this.$store.getters.currentUser.token;
       let uri = "/api/department/create";
 
       var form_data = new FormData();
@@ -258,7 +262,7 @@ export default {
       }
       form_data.append("action", "new");
 
-      this.axios.post(uri, form_data).then(response => {
+      this.axios.post(uri, form_data,this.headers).then(response => {
         console.log(response);
         this.$store.commit("departmentAdd", response.data.data);
         this.flag_success = true;
@@ -269,13 +273,6 @@ export default {
       });
     },
     editDepartment() {
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
-
       let uri = "/api/department/create";
       var form_data = new FormData();
       console.log("Printing");
@@ -294,7 +291,7 @@ export default {
       // form_data.append("division_id", this.division_id);
       form_data.append("action", "edit");
       this.axios
-        .post(uri, form_data, headers)
+        .post(uri, form_data, this.headers)
         .then(response => {
           console.log(response.data.message);
           console.log(response.data.status);
@@ -321,17 +318,10 @@ export default {
       console.log(this.edit_department);
     },
     deleteDepartment(id) {
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
-
       var flag = confirm("Are you sure?");
       if (flag) {
         let uri = `/api/department/delete/${id}`;
-        this.axios.delete(uri, headers).then(response => {
+        this.axios.delete(uri, this.headers).then(response => {
           console.log(response);
         });
       }
@@ -342,30 +332,16 @@ export default {
         event.target.options[event.target.options.selectedIndex].text;
     },
     getDivisions() {
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
-
       let uri = "/api/division/list";
-      this.axios.get(uri, headers).then(response => {
+      this.axios.get(uri, this.headers).then(response => {
         console.log("set division");
         this.divisions = response.data.data;
         this.$store.commit("divisionSet", response.data.data);
       });
     },
     getDepartments() {
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
-
       let uri = "/api/department/list";
-      this.axios.get(uri, headers).then(response => {
+      this.axios.get(uri, this.headers).then(response => {
         this.departments = response.data.data;
         this.$store.commit("departmentSet", response.data.data);
       });

@@ -46,7 +46,7 @@
               <tbody>
                 <tr v-for="(designation,index) in designations" :key="designation.id">
                   <td>{{ designation.id }}</td>
-                  <td>{{ designation.division.name }}</td>
+                  <td>{{ designation.department.division.name }}</td>
                   <td>{{ designation.department.name }}</td>
                   <td>{{ designation.name }}</td>
                   <td>
@@ -106,27 +106,25 @@
               <span id="form_result"></span>
               <div class="form-group">
                 <label class="control-label col-md-4">Division Name</label>
-                <select v-model="designation.division_id" class="form-control">
-                  <option>Select Division</option>
+                <select v-model="selectedDivision" class="form-control">
                   <option
-                    v-for="division in divisions"
-                    :value="division.id"
-                    :key="division.id"
+                    v-for="(division,ind) in divisions"
+                    :value="ind"
+                    :key="ind"
                   >{{ division.name }}</option>
                 </select>
 
                 <span id="division_id_err" class="text-danger form_error"></span>
               </div>
 
-              <div class="form-group">
+              <div class="form-group" v-if="selectedDivision">
                 <label class="control-label col-md-4">Department Name</label>
-                <select v-model="designation.department_id" class="form-control">
-                  <option>Select Department</option>
+                <select v-model="selectedDepartment" class="form-control" >
                   <option
-                    v-for="department in departments"
-                    :value="department.id"
-                    :key="department.id"
-                  >{{ department.name }}</option>
+                    v-for="dept in divisions[selectedDivision].departments"
+                    :value="dept.id"
+                    :key="dept.id"
+                  >{{dept.name}}</option>
                 </select>
 
                 <span id="division_id_err" class="text-danger form_error"></span>
@@ -244,6 +242,8 @@
 export default {
   data() {
     return {
+      selectedDivision:null,
+      selectedDepartment:null,
       designations: [],
       departments: [],
       divisions: [],
@@ -258,69 +258,58 @@ export default {
       division_name: "",
       department_name: "",
       division_id: "",
-      department_id: ""
+      department_id: "",
+      headers : {
+        headers: {
+          Authorization: "Bearer " + this.$store.getters.currentUser.token
+        }
+      }
     };
   },
   created() {
     this.getDesignations();
-    this.getDepartments();
     this.getDivisions();
   },
   methods: {
-    addDesignation() {
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
+    addDesignation() {  
       let uri = "/api/designation/create";
 
       var form_data = new FormData();
 
       for (var key in this.designation) {
         var postValue = this.designation[key];
-        console.log("" + key + " : " + postValue);
         if (key == "image") {
           postValue = this.dataURLtoFile(this.designation[key], "abc.png");
         }
         form_data.append(key, postValue);
       }
       form_data.append("action", "new");
-
-      this.axios.post(uri, form_data, headers).then(response => {
-        console.log(response);
-        this.$store.commit("designationAdd", response.data.data);
+      form_data.append("department_id", this.selectedDepartment);
+      this.axios.post(uri, form_data, this.headers).then(response => {
+        if(response.data.api_status){
+           this.$store.commit("designationAdd", response.data.data);
         this.flag_success = true;
         this.dismissCountDown = this.dismissSecs;
         this.message = response.data.message;
         this.dismissCountDown = this.dismissSecs;
+        }else{
+        alert(response.data.message);
+        }
+       
       });
     },
     deleteDesignation(id) {
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
 
       var flag = confirm("Are you sure?");
       console.log(flag === true);
       if (flag) {
         let uri = `/api/designation/delete/${id}`;
-        this.axios.delete(uri, headers).then(response => {
+        this.axios.delete(uri, this.headers).then(response => {
           console.log(response);
         });
       }
     },
     editDesignation() {
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
 
       let uri = "/api/designation/create";
       var form_data = new FormData();
@@ -336,7 +325,7 @@ export default {
 
       form_data.append("action", "edit");
       this.axios
-        .post(uri, form_data, headers)
+        .post(uri, form_data, this.headers)
         .then(response => {
           //console.log(response.data.api_status);
           if (response.data.api_status == 0) {
@@ -362,45 +351,27 @@ export default {
       this.edit_designation = this.designations[i];
     },
     getDivisions() {
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
 
       let uri = "/api/division/list";
-      this.axios.get(uri, headers).then(response => {
+      this.axios.get(uri, this.headers).then(response => {
         console.log("set division");
         this.divisions = response.data.data;
         this.$store.commit("divisionSet", response.data.data);
       });
     },
     getDesignations() {
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
 
       let uri = "/api/designation/list";
-      this.axios.get(uri, headers).then(response => {
-        console.log("set dessignation");
+      this.axios.get(uri, this.headers).then(response => {
+        console.log(response.data.data);
+        
         this.designations = response.data.data;
         this.$store.commit("designationSet", response.data.data);
       });
     },
     getDepartments() {
-      var tkn = this.$store.getters.currentUser.token;
-      let headers = {
-        headers: {
-          Authorization: "Bearer " + tkn
-        }
-      };
-
       let uri = "/api/department/list";
-      this.axios.get(uri, headers).then(response => {
+      this.axios.get(uri, this.headers).then(response => {
         this.departments = response.data.data;
         this.$store.commit("designationSet", response.data.data);
       });

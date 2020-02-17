@@ -18,7 +18,9 @@ class DesignationController extends Controller
 
     public function getList()
     {
-        $designation = Designation::with('division','department')->where('status', 1)->get();
+        $designation = Designation::with(['department'=>function($q){
+            return $q->with('division')->get();
+        }])->where('status', 1)->get();
         if ($designation->count() == 0) {
 
             $this->response = array(
@@ -57,10 +59,13 @@ class DesignationController extends Controller
 
 
             $designation = Designation::create($inputs);
+           $design =  Designation::with(['department'=>function($q){
+                return $q->with('division')->get();
+            }])->find($designation->id);
             $this->response = array(
                 'api_status' => 1,
                 'message' => 'Designation Added Successfully !',
-                'data' => $designation
+                'data' => $design
             );
         }
 
