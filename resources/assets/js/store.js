@@ -73,6 +73,10 @@ export default {
 
             state.departments = payload;
         },
+        departmentEdit(state,payload){
+            state.departments.pop();
+            state.departments.push(payload);
+        },
         /* Designation */
         designationAdd(state,payload){
             state.designations.push(payload);
@@ -80,6 +84,22 @@ export default {
         designationSet(state,payload){
 
             state.designations = payload;
+        },
+        designationEdit(state,payload){
+            state.designations.pop();
+            state.designations.push(payload);
+        },
+
+        /*User */
+        userAdd(state,payload){
+            state.users.push(payload);
+        },
+        userSet(state,payload){
+            state.users = payload;
+        },
+        userEdit(state,payload){
+            state.users.pop();
+            state.users.push(payload);
         }
 
 

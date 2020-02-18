@@ -18,8 +18,12 @@ class AuthController extends Controller
     public $failedStatus = 500;
 
     public function login(Request $request){
-    	$auth = Auth::attempt($request->all());
+
+
+        $auth = Auth::attempt($request->all());
+
         if ($auth) {
+
             $user = Auth::user();
             //Remove Previous tokens
             if ($user->accessTokens != null) {

@@ -24,7 +24,7 @@
                 </form>
               </div>
               <h4 class="page-title">
-                <span></span>
+                <span>Departments</span>
               </h4>
             </div>
           </div>

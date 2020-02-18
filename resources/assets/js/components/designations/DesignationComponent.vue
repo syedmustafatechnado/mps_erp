@@ -25,7 +25,7 @@
                 </form>
               </div>
               <h4 class="page-title">
-                <span></span>
+                <span>Designation</span>
               </h4>
             </div>
           </div>
@@ -107,6 +107,7 @@
               <div class="form-group">
                 <label class="control-label col-md-4">Division Name</label>
                 <select v-model="selectedDivision" class="form-control">
+
                   <option
                     v-for="(division,ind) in divisions"
                     :value="ind"
@@ -117,9 +118,9 @@
                 <span id="division_id_err" class="text-danger form_error"></span>
               </div>
 
-              <div class="form-group" v-if="selectedDivision">
+              <div class="form-group" v-if="selectedDivision !=null ">
                 <label class="control-label col-md-4">Department Name</label>
-                <select v-model="selectedDepartment" class="form-control" >
+                <select v-model="selectedDepartment" class="form-control"  >
                   <option
                     v-for="dept in divisions[selectedDivision].departments"
                     :value="dept.id"
@@ -271,7 +272,7 @@ export default {
     this.getDivisions();
   },
   methods: {
-    addDesignation() {  
+    addDesignation() {
       let uri = "/api/designation/create";
 
       var form_data = new FormData();
@@ -295,7 +296,7 @@ export default {
         }else{
         alert(response.data.message);
         }
-       
+
       });
     },
     deleteDesignation(id) {
@@ -364,7 +365,7 @@ export default {
       let uri = "/api/designation/list";
       this.axios.get(uri, this.headers).then(response => {
         console.log(response.data.data);
-        
+
         this.designations = response.data.data;
         this.$store.commit("designationSet", response.data.data);
       });
