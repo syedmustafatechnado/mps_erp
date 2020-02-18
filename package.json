@@ -32,6 +32,7 @@
         "moment": "^2.24.0",
         "npm-watch": "^0.6.0",
         "validate.js": "^0.13.1",
+        "vee-validate": "^2.2.15",
         "vue-axios": "^2.1.4",
         "vue-chartjs": "^3.5.0",
         "vue-router": "^3.1.5",

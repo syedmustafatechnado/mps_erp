@@ -362,8 +362,6 @@ export default {
 
       let uri = "/api/designation/list";
       this.axios.get(uri, this.headers).then(response => {
-        console.log(response.data.data);
-
         this.designations = response.data.data;
         this.$store.commit("designationSet", response.data.data);
       });

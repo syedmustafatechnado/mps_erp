@@ -14,7 +14,9 @@ import App from './App.vue';
 import Vue from "vue"
 import VueSimpleAlert from "vue-simple-alert";
 import BootstrapVue from 'bootstrap-vue';
+import VeeValidate from 'vee-validate';
 
+Vue.use(VeeValidate);
 Vue.use(VueSimpleAlert);
 Vue.use(BootstrapVue);
 // import DatatableFactory from 'vuejs-datatable';
