@@ -222,14 +222,16 @@ export default {
       dismissCountDown: 0,
       alert_type: "success",
       edit_department: {},
+      edit_department_index: 0,
       division_name: "",
       department_name: "",
       division_id: "",
-      headers: {
+      headers : {
         headers: {
           Authorization: "Bearer " + this.$store.getters.currentUser.token
-        }
-      }
+          }
+     }
+
     };
   },
   computed: {},
@@ -286,9 +288,7 @@ export default {
         }
         form_data.append(key, postValue);
       }
-      // form_data.append("id", this.department_id);
-      // form_data.append("name", this.department_name);
-      // form_data.append("division_id", this.division_id);
+
       form_data.append("action", "edit");
       this.axios
         .post(uri, form_data, this.headers)
@@ -297,11 +297,10 @@ export default {
           console.log(response.data.status);
 
           if (response.data.api_status == 0) {
-            // console.log("I am coming in");
             this.alert_type = "danger";
           } else {
             this.alert_type = "success";
-            this.$store.commit("departmentEdit", response.data.data);
+            this.$store.commit("departmentEdit", response.data.data,this.edit_department_index);
           }
 
           this.flag_success = true;
@@ -313,9 +312,11 @@ export default {
         });
     },
     setDepartment(i) {
-      console.log(this.departments[i]);
+
       this.edit_department = this.departments[i];
       console.log(this.edit_department);
+      this.edit_department_index = i;
+
     },
     deleteDepartment(id) {
       var flag = confirm("Are you sure?");

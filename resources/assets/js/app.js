@@ -19,6 +19,9 @@ Vue.use(VueSimpleAlert);
 Vue.use(BootstrapVue);
 // import DatatableFactory from 'vuejs-datatable';
 
+//Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
+
+
 /*[START] SET BASE URL */
 axios.defaults.baseURL = process.env.MIX_APP_URL;
 axios.defaults.baseApiUrl = process.env.MIX_APP_URL+'api';

@@ -57,8 +57,8 @@ export default {
         },
 
         divisionEdit(state,payload){
-            state.divisions.pop();
-            state.divisions.push(payload);
+
+            //state.divisions[i] = payload;
         },
         divisionSet(state,payload){
             console.log("In div set");
@@ -73,9 +73,9 @@ export default {
 
             state.departments = payload;
         },
-        departmentEdit(state,payload){
-            state.departments.pop();
-            state.departments.push(payload);
+        departmentEdit(state,payload,i){
+
+          state.departments[i] =payload;
         },
         /* Designation */
         designationAdd(state,payload){
@@ -85,9 +85,9 @@ export default {
 
             state.designations = payload;
         },
-        designationEdit(state,payload){
-            state.designations.pop();
-            state.designations.push(payload);
+        designationEdit(state,payload,i){
+
+           state.designations[i] = payload;
         },
 
         /*User */
@@ -97,9 +97,8 @@ export default {
         userSet(state,payload){
             state.users = payload;
         },
-        userEdit(state,payload){
-            state.users.pop();
-            state.users.push(payload);
+        userEdit(state,payload,i){
+           state.users[i] = payload;
         }
 
 

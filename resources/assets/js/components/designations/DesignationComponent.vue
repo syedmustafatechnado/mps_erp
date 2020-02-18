@@ -184,7 +184,7 @@
               <span id="form_result"></span>
               <div class="form-group">
                 <label class="control-label col-md-4">Division Name</label>
-                <select v-model="edit_designation.division_id" class="form-control">
+                <select  class="form-control" id="division_id">
                   <option
                     v-for="division in divisions"
                     :value="division.id"
@@ -197,7 +197,7 @@
 
               <div class="form-group">
                 <label class="control-label col-md-4">Department Name</label>
-                <select v-model="edit_designation.department_id" class="form-control">
+                <select  class="form-control" id="department_id">
                   <option
                     v-for="department in departments"
                     :value="department.id"
@@ -256,6 +256,7 @@ export default {
       name: "",
       alert_type: "success",
       edit_designation: {},
+      edit_designation_index :0,
       division_name: "",
       department_name: "",
       division_id: "",
@@ -333,7 +334,7 @@ export default {
             this.alert_type = "danger";
           } else {
             this.alert_type = "success";
-            this.$store.commit("designationEdit", response.data.data);
+            this.$store.commit("designationEdit", response.data.data,this.edit_designation_index);
           }
 
           this.flag_success = true;
@@ -345,11 +346,8 @@ export default {
         });
     },
     setDesignation(i) {
-      //   console.log(name);
-      //   this.edit_designation.name = name;
-      //   console.log(this.designations[i]);
-      //   this.designation = this.designation[i];
       this.edit_designation = this.designations[i];
+      this.edit_designation_index = i;
     },
     getDivisions() {
 
