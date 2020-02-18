@@ -114,13 +114,15 @@
                 <label class="control-label col-md-4">Division Name</label>
                 <input
                   type="text"
-                  name="name"
+                  name="add_div_name"
                   id="name"
                   v-model="division.name"
+                  v-validate="'required|alpha'"
+                  data-vv-as="division"
                   class="form-control"
-                  required
+                  :class="{ 'is-danger': errors.has('add_div_name') }"
                 />
-                <span id="name_errs" class="text-danger form_error"></span>
+                <small v-if="errors.has('add_div_name')" class="field-text is-danger">{{ errors.first('add_div_name') }}</small>
               </div>
               <p>
                 <b-alert
@@ -288,24 +290,30 @@ export default {
         });
     },
     addDivision() {
-      let uri = "/api/division/create";
+      this.$validator.validate().then((result) => {
+        if (result) {
+          let uri = "/api/division/create";
 
-      var form_data = new FormData();
+          var form_data = new FormData();
 
-      for (var key in this.division) {
-        var postValue = this.division[key];
-        if (key == "image") {
-          postValue = this.dataURLtoFile(this.division[key], "abc.png");
+          for (var key in this.division) {
+            var postValue = this.division[key];
+            if (key == "image") {
+              postValue = this.dataURLtoFile(this.division[key], "abc.png");
+            }
+            form_data.append(key, postValue);
+          }
+          form_data.append("action", "new");
+          this.axios.post(uri, form_data, this.headers).then(response => {
+            this.$store.commit("divisionAdd", response.data.data);
+            this.flag_success = true;
+            this.dismissCountDown = this.dismissSecs;
+            this.message = response.data.message;
+          });
+          return;
         }
-        form_data.append(key, postValue);
-      }
-      form_data.append("action", "new");
-      this.axios.post(uri, form_data, this.headers).then(response => {
-        this.$store.commit("divisionAdd", response.data.data);
-        this.flag_success = true;
-        this.dismissCountDown = this.dismissSecs;
-        this.message = response.data.message;
       });
+      
     }
   }
 };
