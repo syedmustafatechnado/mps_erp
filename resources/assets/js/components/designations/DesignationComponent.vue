@@ -50,8 +50,14 @@
                   <td>{{ designation.department.name }}</td>
                   <td>{{ designation.name }}</td>
                   <td>
-                    <button class="btn btn-info btn-xs" data-toggle="modal">
+                    <!-- <router-link :to="{name:'permission'}" class="nav-link">
                       <i class="fas fa-edit"></i>
+                    </router-link> -->
+
+                    <button class="btn btn-info btn-xs" data-toggle="modal">
+                     <router-link :to="{name:'permission'}" class="nav-link">
+                      <i class="fas fa-edit"></i>
+                    </router-link>
                     </button>
                     <button class="btn btn-info btn-xs view">
                       <i class="fas fa-eye"></i>
@@ -107,9 +113,7 @@
               <div class="form-group">
                 <label class="control-label col-md-4">Division Name</label>
                 <select v-model="selectedDivision" class="form-control">
-
                   <option
-
                     v-for="(division,ind) in divisions"
                     :value="ind"
                     :key="ind"
@@ -121,7 +125,7 @@
 
               <div class="form-group" v-if="selectedDivision !=null ">
                 <label class="control-label col-md-4">Department Name</label>
-                <select v-model="selectedDepartment" class="form-control"  >
+                <select v-model="selectedDepartment" class="form-control">
                   <option
                     v-for="dept in divisions[selectedDivision].departments"
                     :value="dept.id"
@@ -191,7 +195,7 @@
                     :value="ind"
                     :key="ind"
                     :selected="division.id == edit_designation.department.division_id"
-                  >{{ division.name  }}</option>
+                  >{{ division.name }}</option>
                 </select>
                 <span id="division_id_err" class="text-danger form_error"></span>
               </div>
@@ -203,9 +207,9 @@
                     :value="edit_designation.department.id"
                     :key="edit_designation.department.id"
                   >{{ edit_designation.department.name }}</option>
-                </select> -->
+                </select>-->
 
-                <select class="form-control"  >
+                <select class="form-control">
                   <option
                     v-for="dept in departments"
                     :value="dept.id"
@@ -252,8 +256,8 @@
 export default {
   data() {
     return {
-      selectedDivision:null,
-      selectedDepartment:null,
+      selectedDivision: null,
+      selectedDepartment: null,
       designations: [],
       departments: [],
       divisions: [],
@@ -265,13 +269,13 @@ export default {
       name: "",
       alert_type: "success",
       edit_designation: {},
-      edit_designation_index :0,
+      edit_designation_index: 0,
       division_name: "",
       department_name: "",
       division_id: "",
       department_id: "",
       dept: {},
-      headers : {
+      headers: {
         headers: {
           Authorization: "Bearer " + this.$store.getters.currentUser.token
         }
@@ -298,20 +302,18 @@ export default {
       form_data.append("action", "new");
       form_data.append("department_id", this.selectedDepartment);
       this.axios.post(uri, form_data, this.headers).then(response => {
-        if(response.data.api_status){
-           this.$store.commit("designationAdd", response.data.data);
-        this.flag_success = true;
-        this.dismissCountDown = this.dismissSecs;
-        this.message = response.data.message;
-        this.dismissCountDown = this.dismissSecs;
-        }else{
-        alert(response.data.message);
+        if (response.data.api_status) {
+          this.$store.commit("designationAdd", response.data.data);
+          this.flag_success = true;
+          this.dismissCountDown = this.dismissSecs;
+          this.message = response.data.message;
+          this.dismissCountDown = this.dismissSecs;
+        } else {
+          alert(response.data.message);
         }
-
       });
     },
     deleteDesignation(id) {
-
       var flag = confirm("Are you sure?");
       console.log(flag === true);
       if (flag) {
@@ -322,7 +324,6 @@ export default {
       }
     },
     editDesignation() {
-
       let uri = "/api/designation/create";
       var form_data = new FormData();
       for (var key in this.edit_designation) {
@@ -342,7 +343,11 @@ export default {
             this.alert_type = "danger";
           } else {
             this.alert_type = "success";
-            this.$store.commit("designationEdit", response.data.data,this.edit_designation_index);
+            this.$store.commit(
+              "designationEdit",
+              response.data.data,
+              this.edit_designation_index
+            );
           }
 
           this.flag_success = true;
@@ -353,26 +358,25 @@ export default {
           console.log(e.message);
         });
     },
-    chngDiv(e){
-      if(this.divisions[e.target.value] != null){
+    chngDiv(e) {
+      if (this.divisions[e.target.value] != null) {
         this.departments = this.divisions[e.target.value].departments;
-      }else{
+      } else {
         this.departments = [];
       }
     },
     setDesignation(i) {
       this.edit_designation = this.designations[i];
-      console.log(this.edit_designation,'set designation');
+      console.log(this.edit_designation, "set designation");
       this.edit_designation_index = i;
       var div_id = this.designations[i].department.division_id;
-      this.departments = this.divisions.filter(function(division){
-        if(division.id == div_id){
-            return  division.departments;
+      this.departments = this.divisions.filter(function(division) {
+        if (division.id == div_id) {
+          return division.departments;
         }
       })[0].departments;
     },
     getDivisions() {
-
       let uri = "/api/division/list";
       this.axios.get(uri, this.headers).then(response => {
         console.log("set division");
@@ -381,7 +385,6 @@ export default {
       });
     },
     getDesignations() {
-
       let uri = "/api/designation/list";
       this.axios.get(uri, this.headers).then(response => {
         this.designations = response.data.data;
