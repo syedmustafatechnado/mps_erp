@@ -210,6 +210,7 @@
                     v-for="dept in departments"
                     :value="dept.id"
                     :key="dept.id"
+                    :selected="dept.id == edit_designation.department.id"
                   >{{dept.name}}</option>
                 </select>
 
