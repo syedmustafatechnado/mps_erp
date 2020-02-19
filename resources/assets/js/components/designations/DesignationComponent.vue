@@ -185,26 +185,32 @@
               <span id="form_result"></span>
               <div class="form-group" v-if="edit_designation.id">
                 <label class="control-label col-md-4">Division Name</label>
-                <select v-bind="edit_designation.department.division_id" class="form-control" id="division_id" >
+                <select class="form-control" @change="chngDiv($event)">
                   <option
-                    v-for="(division,index) in divisions"
-                    :value="index"
-                    :key="index"
-                    :selected="division.id ===  edit_designation.department.division_id"
-                  >{{division.name}}</option>
+                    v-for="(division,ind) in divisions"
+                    :value="ind"
+                    :key="ind"
+                    :selected="division.id == edit_designation.department.division_id"
+                  >{{ division.name  }}</option>
                 </select>
-
                 <span id="division_id_err" class="text-danger form_error"></span>
               </div>
 
               <div class="form-group" v-if="edit_designation.id">
                 <label class="control-label col-md-4">Department Name</label>
-                <select v-bind="edit_designation.department.division_id"  class="form-control" id="department_id">
+                <!-- <select  class="form-control" id="department_id">
                   <option
-                    v-for="department in edit_designation.department"
-                    :value="department.id"
-                    :key="department.id"
-                  >{{ department.name }}</option>
+                    :value="edit_designation.department.id"
+                    :key="edit_designation.department.id"
+                  >{{ edit_designation.department.name }}</option>
+                </select> -->
+
+                <select class="form-control"  >
+                  <option
+                    v-for="dept in departments"
+                    :value="dept.id"
+                    :key="dept.id"
+                  >{{dept.name}}</option>
                 </select>
 
                 <span id="division_id_err" class="text-danger form_error"></span>
@@ -263,6 +269,7 @@ export default {
       department_name: "",
       division_id: "",
       department_id: "",
+      dept: {},
       headers : {
         headers: {
           Authorization: "Bearer " + this.$store.getters.currentUser.token
@@ -345,10 +352,23 @@ export default {
           console.log(e.message);
         });
     },
+    chngDiv(e){
+      if(this.divisions[e.target.value] != null){
+        this.departments = this.divisions[e.target.value].departments;
+      }else{
+        this.departments = [];
+      }
+    },
     setDesignation(i) {
       this.edit_designation = this.designations[i];
+      console.log(this.edit_designation,'set designation');
       this.edit_designation_index = i;
-      console.log(this.edit_designation);
+      var div_id = this.designations[i].department.division_id;
+      this.departments = this.divisions.filter(function(division){
+        if(division.id == div_id){
+            return  division.departments; 
+        }
+      })[0].departments;
     },
     getDivisions() {
 

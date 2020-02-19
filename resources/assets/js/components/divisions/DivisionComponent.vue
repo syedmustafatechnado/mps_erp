@@ -231,7 +231,6 @@ export default {
     getDivisions() {
       let uri = "/api/division/list";
       this.axios.get(uri, this.headers).then(response => {
-        console.log(response.data);
         this.divisions = response.data.data;
         this.$store.commit("divisionSet", response.data.data);
       });
@@ -242,14 +241,12 @@ export default {
     setDivisionId(id, name) {
       this.division_id = id;
       this.division_name = name;
-      console.log(this.division_name);
     },
     deleteDivision(id) {
       var flag = confirm("Are you sure?");
       if (flag) {
         let uri = `/api/division/delete/${id}`;
         this.axios.delete(uri, this.headers).then(response => {
-          console.log(response);
         });
       }
     },
@@ -270,11 +267,7 @@ export default {
       this.axios
         .post(uri, form_data, this.headers)
         .then(response => {
-          console.log(response.data.message);
-          console.log(response.data.status);
-
           if (response.data.api_status == 0) {
-            console.log("I am coming in");
             this.alert_type = "danger";
           } else {
             this.alert_type = "success";
