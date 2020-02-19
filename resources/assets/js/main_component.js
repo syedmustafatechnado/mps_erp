@@ -8,8 +8,9 @@ import Top from './components/layouts/Top.vue';
 import DivisionComponent from  './components/divisions/DivisionComponent.vue';
 import DepartmentComponent from  './components/departments/DepartmentComponent.vue';
 import DesignationComponent from  './components/designations/DesignationComponent.vue';
-import UpdateUser from './components/auth/UpdateUser.vue';
+import UpdateUser from './components/users/UpdateUser.vue';
 import UserComponent from './components/users/UserComponent.vue';
+import PermissionComponent from './components/permissions/PermissionComponent.vue';
 
 
 
@@ -25,7 +26,8 @@ const components = {
     DepartmentComponent:DepartmentComponent,
     DesignationComponent:DesignationComponent,
     UpdateUser:UpdateUser,
-    UserComponent:UserComponent
+    UserComponent:UserComponent,
+    PermissionComponent:PermissionComponent
 }
 
 export default components;

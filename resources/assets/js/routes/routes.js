@@ -41,6 +41,22 @@ const routes = [
         meta:{
             requireAuth:true
         }
+    },
+    {
+        name:'updateuser',
+        path:'/updateuser',
+        component:AllComponents['UpdateUser'],
+        meta:{
+            requireAuth:true
+        }
+    },
+    {
+        name:'permission',
+        path:'/permission',
+        component:AllComponents['PermissionComponent'],
+        meta:{
+            requireAuth:true
+        }
     }
 
 ];

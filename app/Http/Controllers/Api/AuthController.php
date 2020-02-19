@@ -11,15 +11,17 @@ use Auth;
 use App\User;
 use Mail;
 use App\UserVerification;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Api\ChangePasswordRequest;
 
 class AuthController extends Controller
 {
-	public $successStatus = 200;
+    public $successStatus = 200;
     public $response = array();
     public $failedStatus = 500;
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
 
 
         $auth = Auth::attempt($request->all());
@@ -39,7 +41,7 @@ class AuthController extends Controller
                 'token' => $token,
                 'data' => $user
             );
-        }else{
+        } else {
             $this->response = array(
                 'status' => false,
                 'message' => 'User Email or Password is Incorrect !'
@@ -48,15 +50,16 @@ class AuthController extends Controller
         return response()->json($this->response, $this->successStatus);
     }
 
-    public function signUp(CreateSignupRequest $request){
+    public function signUp(CreateSignupRequest $request)
+    {
 
         $user = User::create($request->all());
-        if($user->id){
+        if ($user->id) {
             $this->response = array(
                 'status' => true,
                 'message' => 'SignUp Successfully'
             );
-        }else{
+        } else {
             $this->response = array(
                 'status' => false,
                 'message' => 'Failed to SignUp!'
@@ -65,7 +68,8 @@ class AuthController extends Controller
         return response()->json($this->response, $this->successStatus);
     }
 
-    public function getList(){
+    public function getList()
+    {
         $users = User::all();
         if ($users->count() == 0) {
 
@@ -83,7 +87,32 @@ class AuthController extends Controller
         }
         return response()->json($this->response, $this->successStatus);
     }
+    public function changePassword(Request $request)
+    {
 
+        $user = User::find(Auth::user()->id);
+        if (Hash::check($request->input('old_password'), $user->password)) {
+            $user->password = bcrypt($request->input('new_password'));
+            $upd = $user->save();
+            if ($upd) {
+                $this->response = array(
+                    'api_status' => 1,
+                    'message' => 'Your Password has been changed!',
+                );
+            } else {
+                $this->response = array(
+                    'api_status' => 0,
+                    'message' => 'Old Password is not matched',
+                );
+            }
+        } else {
+            $this->response = array(
+                'api_status' => 0,
+                'message' => 'Old Password is not matched',
+            );
+        }
+        return response()->json($this->response, $this->successStatus);
+    }
     public function deleteUser(Request $request, $id)
     {
 
@@ -110,8 +139,7 @@ class AuthController extends Controller
 
         $inputs = $request->all();
         //dd($inputs);
-        if($request->action=='edit')
-        {
+        if ($request->action == 'edit') {
 
             $obj = User::find($request->id);
             $obj->name = $request->name;
@@ -124,9 +152,7 @@ class AuthController extends Controller
 
 
             );
-
-        }
-        else{
+        } else {
 
             $users = User::create($inputs);
             $this->send_code($users->id);
@@ -144,7 +170,8 @@ class AuthController extends Controller
         return response()->json($this->response, $this->successStatus);
     }
 
-    public function complete_profile(Request $request){
+    public function complete_profile(Request $request)
+    {
         $rules = [
             'email' => 'required|email'
         ];
@@ -163,10 +190,10 @@ class AuthController extends Controller
                 'api_status' => 1,
                 'message' => 'Email does not exist!'
             );
-        }else{
+        } else {
             /**** SEND MAIL ****/
             $this->to_email = $request->input('email');
-//            $encoded_email = urlencode(base64_encode($this->to_email));
+            //            $encoded_email = urlencode(base64_encode($this->to_email));
             $new_pwd = uniqid();
             $data = array('new_password' => $new_pwd);
             $user_id = $user->get()->toArray()[0]['id'];
@@ -188,9 +215,10 @@ class AuthController extends Controller
         return response()->json($this->response, $this->successStatus);
     }
 
-    public function send_code($user_id){
+    public function send_code($user_id)
+    {
         //Add user Verification
-        $code = substr(rand(),0,5);
+        $code = substr(rand(), 0, 5);
         $verification = array(
             'user_id' => $user_id,
             'code' => $code
@@ -200,7 +228,7 @@ class AuthController extends Controller
         /**** SEND MAIL ****/
         $this->to_email = $user->email;
         $data = array('verify_link' => env('APP_URL') . 'email/verification/' . $user->id . '/' . $code);
-       // $data = array('verify_link' => "Your Code is ".$code);
+        // $data = array('verify_link' => "Your Code is ".$code);
         Mail::send('mail', $data, function ($message) {
             $message->to($this->to_email, 'User')
                 ->subject('Complete Your Profile');
@@ -209,31 +237,5 @@ class AuthController extends Controller
     }
 
 
-    public function changePassword(ChangePasswordRequest $request)
-    {
-
-        $user = User::find(Auth::user()->id);
-        if (Hash::check($request->input('old_password'), $user->password)) {
-            $user->password = bcrypt($request->input('new_password'));
-            $upd = $user->save();
-            if ($upd) {
-                $this->response = array(
-                    'api_status' => 1,
-                    'message' => 'Your Password has been changed!',
-                );
-            } else {
-                $this->response = array(
-                    'api_status' => 0,
-                    'message' => 'Old Password is not matched',
-                );
-            }
-        } else {
-            $this->response = array(
-                'api_status' => 0,
-                'message' => 'Old Password is not matched',
-            );
-        }
-        return response()->json($this->response, $this->successStatus);
-    }
 
 }

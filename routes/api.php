@@ -15,31 +15,33 @@ use Illuminate\Http\Request;
 // Login Routes
 Route::post('/login', 'Api\AuthController@login');
 Route::post('/signup', 'Api\AuthController@signUp');
-Route::group(['middleware' => ['auth:api'],'namespace'=>'Api'], function(){
+Route::group(['middleware' => ['auth:api'], 'namespace' => 'Api'], function () {
 
 
-// Division Routes
+    // Division Routes
 
-Route::get('/division/list','DivisionController@getList');
-Route::post('/division/create','DivisionController@addDivision');
-Route::delete('/division/delete/{id}','DivisionController@deleteDivision');
+    Route::get('/division/list', 'DivisionController@getList');
+    Route::post('/division/create', 'DivisionController@addDivision');
+    Route::delete('/division/delete/{id}', 'DivisionController@deleteDivision');
 
-// Department Routes
-Route::get('/department/list','DepartmentController@getList');
-Route::post('/department/create','DepartmentController@addDepartment');
-Route::delete('/department/delete/{id}','DepartmentController@deleteDepartment');
+    // Department Routes
+    Route::get('/department/list', 'DepartmentController@getList');
+    Route::post('/department/create', 'DepartmentController@addDepartment');
+    Route::delete('/department/delete/{id}', 'DepartmentController@deleteDepartment');
 
-// Designation Routes
-Route::post('/designation/create','DesignationController@addDesignation');
-Route::get('designation/list','DesignationController@getList');
-Route::delete('/designation/delete/{id}','DesignationController@deleteDesignation');
+    // Designation Routes
+    Route::post('/designation/create', 'DesignationController@addDesignation');
+    Route::get('designation/list', 'DesignationController@getList');
+    Route::delete('/designation/delete/{id}', 'DesignationController@deleteDesignation');
 
-// Users Routes
-Route::get('user/list','AuthController@getList');
-Route::delete('user/delete/{id}','AuthController@deleteUser');
-Route::post('user/create','AuthController@addUser');
-Route::post('user/change/password','AuthController@changePassword');
+    // Users Routes
+    Route::get('user/list', 'AuthController@getList');
+    Route::delete('user/delete/{id}', 'AuthController@deleteUser');
+    Route::post('user/change/password', 'AuthController@changePassword');
+    Route::post('user/create', 'AuthController@addUser');
 
+    // Modules Routes
+    Route::get('module/list','ModuleController@getList');
 });
 
 // Route::post('/post/create', 'PostController@store');
@@ -48,4 +50,3 @@ Route::post('user/change/password','AuthController@changePassword');
 // Route::delete('/post/delete/{id}', 'PostController@delete');
 // Route::get('/posts', 'PostController@index');
 // Route::get('/users', 'Api\UserController@index');
-

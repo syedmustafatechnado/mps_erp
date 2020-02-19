@@ -122,7 +122,10 @@
                   class="form-control"
                   :class="{ 'is-danger': errors.has('add_div_name') }"
                 />
-                <small v-if="errors.has('add_div_name')" class="field-text is-danger">{{ errors.first('add_div_name') }}</small>
+                <small
+                  v-if="errors.has('add_div_name')"
+                  class="field-text is-danger"
+                >{{ errors.first('add_div_name') }}</small>
               </div>
               <p>
                 <b-alert
@@ -274,7 +277,6 @@ export default {
           console.log(response.data.status);
 
           if (response.data.api_status == 0) {
-            console.log("I am coming in");
             this.alert_type = "danger";
           } else {
             this.alert_type = "success";
@@ -290,12 +292,10 @@ export default {
         });
     },
     addDivision() {
-      this.$validator.validate().then((result) => {
+      this.$validator.validate().then(result => {
         if (result) {
           let uri = "/api/division/create";
-
           var form_data = new FormData();
-
           for (var key in this.division) {
             var postValue = this.division[key];
             if (key == "image") {
@@ -313,7 +313,6 @@ export default {
           return;
         }
       });
-      
     }
   }
 };
