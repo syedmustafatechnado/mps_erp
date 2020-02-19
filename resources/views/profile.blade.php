@@ -41,7 +41,7 @@
                                     <div class="input-group input-file" name="image">
                                         <input type="file" class="form-control text-left" placeholder='Choose a file...' />
                                         <span class="input-group-btn">
-                            <button class="btn btn-default btn-choose" type="button" >Choose</button>
+                            {{-- <button class="btn btn-default btn-choose" type="button" >Choose</button> --}}
                          </span>
                                     </div>
                                 </div>

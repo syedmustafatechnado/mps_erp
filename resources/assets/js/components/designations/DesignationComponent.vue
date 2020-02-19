@@ -109,6 +109,7 @@
                 <select v-model="selectedDivision" class="form-control">
 
                   <option
+
                     v-for="(division,ind) in divisions"
                     :value="ind"
                     :key="ind"
@@ -182,24 +183,25 @@
             </div>
             <div class="modal-body">
               <span id="form_result"></span>
-              <div class="form-group">
+              <div class="form-group" v-if="edit_designation.id">
                 <label class="control-label col-md-4">Division Name</label>
-                <select  class="form-control" id="division_id">
+                <select v-bind="edit_designation.department.division_id" class="form-control" id="division_id" >
                   <option
-                    v-for="division in divisions"
-                    :value="division.id"
-                    :key="division.id"
-                  >{{ division.name }}</option>
+                    v-for="(division,index) in divisions"
+                    :value="index"
+                    :key="index"
+                    :selected="division.id ===  edit_designation.department.division_id"
+                  >{{division.name}}</option>
                 </select>
 
                 <span id="division_id_err" class="text-danger form_error"></span>
               </div>
 
-              <div class="form-group">
+              <div class="form-group" v-if="edit_designation.id">
                 <label class="control-label col-md-4">Department Name</label>
-                <select  class="form-control" id="department_id">
+                <select v-bind="edit_designation.department.division_id"  class="form-control" id="department_id">
                   <option
-                    v-for="department in departments"
+                    v-for="department in edit_designation.department"
                     :value="department.id"
                     :key="department.id"
                   >{{ department.name }}</option>
@@ -315,7 +317,6 @@ export default {
 
       let uri = "/api/designation/create";
       var form_data = new FormData();
-
       for (var key in this.edit_designation) {
         var postValue = this.edit_designation[key];
         console.log("" + key + " : " + postValue);
@@ -329,7 +330,6 @@ export default {
       this.axios
         .post(uri, form_data, this.headers)
         .then(response => {
-          //console.log(response.data.api_status);
           if (response.data.api_status == 0) {
             this.alert_type = "danger";
           } else {
@@ -348,6 +348,7 @@ export default {
     setDesignation(i) {
       this.edit_designation = this.designations[i];
       this.edit_designation_index = i;
+      console.log(this.edit_designation);
     },
     getDivisions() {
 

@@ -28,31 +28,24 @@ export default {
         },
 		loginSuccess(state,payload){
 
-
-
 			state.loading = false;
 			state.auth_error = false;
 			state.isLoggedIn = true;
             state.currentUser = Object.assign({},payload.user,{token:payload.token});
             localStorage.setItem('user',JSON.stringify(state.currentUser));
 
-
-
 		},
 		loginFailed(state,payload){
-
 			state.loading = false;
 			state.auth_error = payload.error;
 		},
 		logout(state){
-
-			localStorage.removeItem("user");
+    		localStorage.removeItem("user");
 			state.isLoggedIn = false;
 			state.currentUser = null;
         },
         /* Division */
         divisionAdd(state,payload){
-
             state.divisions.push(payload);
         },
 
@@ -61,7 +54,7 @@ export default {
             //state.divisions[i] = payload;
         },
         divisionSet(state,payload){
-            console.log("In div set");
+
             state.divisions=payload;
 
         },

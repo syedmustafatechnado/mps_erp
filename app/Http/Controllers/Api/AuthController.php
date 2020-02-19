@@ -11,6 +11,8 @@ use Auth;
 use App\User;
 use Mail;
 use App\UserVerification;
+use App\Http\Requests\Api\ChangePasswordRequest;
+
 class AuthController extends Controller
 {
 	public $successStatus = 200;
@@ -206,5 +208,32 @@ class AuthController extends Controller
         });
     }
 
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+
+        $user = User::find(Auth::user()->id);
+        if (Hash::check($request->input('old_password'), $user->password)) {
+            $user->password = bcrypt($request->input('new_password'));
+            $upd = $user->save();
+            if ($upd) {
+                $this->response = array(
+                    'api_status' => 1,
+                    'message' => 'Your Password has been changed!',
+                );
+            } else {
+                $this->response = array(
+                    'api_status' => 0,
+                    'message' => 'Old Password is not matched',
+                );
+            }
+        } else {
+            $this->response = array(
+                'api_status' => 0,
+                'message' => 'Old Password is not matched',
+            );
+        }
+        return response()->json($this->response, $this->successStatus);
+    }
 
 }

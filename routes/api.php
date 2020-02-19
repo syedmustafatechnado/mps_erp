@@ -38,6 +38,7 @@ Route::delete('/designation/delete/{id}','DesignationController@deleteDesignatio
 Route::get('user/list','AuthController@getList');
 Route::delete('user/delete/{id}','AuthController@deleteUser');
 Route::post('user/create','AuthController@addUser');
+Route::post('user/change/password','AuthController@changePassword');
 
 });
 
