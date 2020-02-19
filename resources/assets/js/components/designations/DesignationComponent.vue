@@ -367,7 +367,7 @@ export default {
       var div_id = this.designations[i].department.division_id;
       this.departments = this.divisions.filter(function(division){
         if(division.id == div_id){
-            return  division.departments; 
+            return  division.departments;
         }
       })[0].departments;
     },

@@ -8,7 +8,7 @@ use Auth;
 use App\Module;
 
 
-class AuthController extends Controller
+class ModuleController extends Controller
 {
     public $successStatus = 200;
     public $response = array();

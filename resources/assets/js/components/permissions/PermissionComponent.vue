@@ -30,9 +30,7 @@
               </thead>
               <tbody>
                 <tr v-for="module in modules" :key="module.id">
-                  <th>
-                    {{module}}
-                  </th>
+                  <th>{{module.name}}</th>
 
                   <td>
                     <div class="checkbox checkbox-primary">
@@ -84,11 +82,28 @@
 
 <script>
 export default {
-
-    data(){
-        return{
-        modules : ["Brands","PPC","Leads","Orders","Invoice","Projects and Tasks","Messages","Users","Division and Departments"]
-        };
+  data() {
+    return {
+      // modules : ["Brands","PPC","Leads","Orders","Invoice","Projects and Tasks","Messages","Users","Division and Departments"]
+      modules: [],
+      headers: {
+        headers: {
+          Authorization: "Bearer " + this.$store.getters.currentUser.token
+        }
+      }
+    };
+  },
+  created() {
+    this.getModules();
+  },
+  methods: {
+    getModules() {
+      let uri = "/api/module/list";
+      this.axios.get(uri, this.headers).then(response => {
+        this.modules= response.data.data;
+        //this.$store.commit("permissionSet", response.data.data);
+      });
     }
+  }
 };
 </script>
