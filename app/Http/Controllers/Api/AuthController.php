@@ -208,7 +208,7 @@ class AuthController extends Controller
             });
             $user->save();
             $this->response = array(
-                'api_status' => '1',
+                'api_status' => 1,
                 'message' => "Kindly Check Your Email!",
             );
         }
@@ -236,6 +236,38 @@ class AuthController extends Controller
         });
     }
 
+    public function resetPassword(Request $request)
+    {
 
 
+        $user = User::where('email', $request->input('email'));
+        //dd($user->get()->first()->id);
+        $count = $user->count();
+        if ($count == 0) {
+            $this->response = array(
+                'api_status' => 0,
+                'message' => "Email doesnot exist!",
+            );
+        } else {
+            $user = $user->get()->first();
+            $code = substr(rand(), 0, 5);
+            $reset = array(
+                'user_id' => $user->id,
+                'code' => $code
+            );
+            UserVerification::create($reset);
+            /**** SEND MAIL ****/
+            $this->to_email = $user->email;
+            $data = array('verify_link' => env('APP_URL') . 'user/reset/password/' . $user->id . '/' . $code);
+            Mail::send('mail', $data, function ($message) {
+                $message->to($this->to_email, 'User')
+                    ->subject('Change Your Password');
+                $message->from('admin@mps.com', 'admin');
+            });
+            $this->response = array(
+                'api_status' => 1,
+                'message' => "Email Sent for change password instructions!",
+            );
+        }
+    }
 }

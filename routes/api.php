@@ -15,6 +15,10 @@ use Illuminate\Http\Request;
 // Login Routes
 Route::post('/login', 'Api\AuthController@login');
 Route::post('/signup', 'Api\AuthController@signUp');
+Route::post('user/reset/password', 'Api\AuthController@resetPassword');
+
+// Check if User Exist
+Route::post('/user/check','Api\AuthController@checkUser');
 Route::group(['middleware' => ['auth:api'], 'namespace' => 'Api'], function () {
 
 

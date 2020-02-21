@@ -57,6 +57,11 @@ const routes = [
         meta:{
             requireAuth:true
         }
+    },
+    {
+        name:'forgotpassword',
+        path:'/forgotpassword',
+        component:AllComponents['ForgotPassword']
     }
 
 ];

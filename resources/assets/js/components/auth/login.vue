@@ -59,8 +59,14 @@
                                 </div>
                             </form>
 
-                            <div class="text-left">
+                            <!-- <div class="text-left">
                                 <h5 class="mt-3 text-muted"><a href="" class="forgot-password">Forgot Password?</a></h5>
+                            </div> -->
+                            <div class="text-left">
+                            <router-link :to="{name:'forgotpassword'}" class="nav-link">
+
+                                <h5 class="mt-3 text-muted"><a href="" class="forgot-password">Forgot Password?</a></h5>
+                                </router-link>
                             </div>
 
                         </div> <!-- end card-body -->

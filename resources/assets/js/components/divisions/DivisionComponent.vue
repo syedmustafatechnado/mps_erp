@@ -117,7 +117,7 @@
                   name="add_div_name"
                   id="name"
                   v-model="division.name"
-                  v-validate="'required|alpha'"
+                  v-validate="'required'"
                   data-vv-as="division"
                   class="form-control"
                   :class="{ 'is-danger': errors.has('add_div_name') }"
@@ -218,13 +218,6 @@ export default {
   },
   computed: {},
   created() {
-    // console.log("HI IMA");
-    // this.divisions = this.$store.getters.divisions;
-    // let uri = "/api/division/list";
-    // this.axios.get(uri).then(response => {
-    //   this.divisions = response.data.data;
-    //   this.$store.commit("divisionSet", response.data.data);
-    // });
     this.getDivisions();
   },
   methods: {
@@ -276,7 +269,6 @@ export default {
             this.alert_type = "success";
             this.$store.commit("divisionEdit", response.data.data);
           }
-
           this.flag_success = true;
           this.dismissCountDown = this.dismissSecs;
           this.message = response.data.message;

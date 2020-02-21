@@ -12,6 +12,11 @@
 */
 Route::post('/email/verification', 'EmailVerifyController@verify');
 Route::get('/email/verification/{code}/{user_id}','EmailVerifyController@index');
+
+// Reset Password
+Route::get('/user/reset/password/{code}/{user_id}','EmailVerifyController@reset');
+Route::post('/user/change/password', 'EmailVerifyController@changePassword');
+
 Route::get('/{any}', function () {
   return view('app');
 })->where('any', '.*');

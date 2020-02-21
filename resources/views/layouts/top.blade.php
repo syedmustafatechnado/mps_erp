@@ -116,7 +116,7 @@
 
                 </span>
             </a>
-    
+
         </li>
 
 
@@ -199,9 +199,9 @@
                         <label for="">Brand</label>
                        <!-- <select name="brand_id" id="brand_id" class="form-control" required="">
                             <option value="">Select Brand</option>
-                           
+
                             <option value=""></option>
-                          
+
                         </select> -->
                         <span id="brand_id_err" class="text-danger form_error"></span>
                     </div>
@@ -241,7 +241,7 @@
             </div>
             <div class="modal-body">
                 <form id="order_form" method="post" enctype="multipart/form-data">
-                   
+
                     <input type="hidden" id="orderid" name="orderid" value="" />
                     <div class="brand-form-group">
                     </div>
@@ -249,9 +249,9 @@
                         <label for="">Lead</label>
                         <select name="lead_id" id="lead_id" class="form-control" required="">
                             <option value="" selected disabled>Select Lead</option>
-                            
+
                             <option value=""></option>
-                           
+
                         </select>
                         <span id="lead_id_err" class="text-danger form_error"></span>
                     </div>
